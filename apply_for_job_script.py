@@ -12,6 +12,8 @@ def apply_for_job(application: "Application"):
     # 2. Then go through each page grabbing every job url
     # 3. Go to those urls, see if we can apply through the gov website, and if so, fill out form then submit
     search_for_jobs(driver, application)
+    number_of_pages = get_number_of_pages_from_search_for_jobs_results(driver)
+    print(number_of_pages)
 
 def setup_driver() -> webdriver:
     """Creates a driver with detatch mode; this helps us see if the script is working well whilst developing."""
@@ -44,6 +46,15 @@ def search_for_jobs(driver, application):
     job_query_url = f"https://findajob.dwp.gov.uk/search?q={application.job_title}&w={application.job_location}&p=1"
     driver.get(job_query_url)
 
+def get_number_of_pages_from_search_for_jobs_results(driver) -> int:
+    """Grabs the last item from the pager-items to determine the number of pages"""
+    xpath_str = "//ul[@class='pager-items']/li[last()]"
+    element = driver.find_element_by_xpath(xpath_str)
+
+    element_value = element.text
+    number_of_pages = int(element_value)
+
+    return number_of_pages
 
 pass
 
