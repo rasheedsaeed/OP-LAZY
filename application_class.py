@@ -9,3 +9,4 @@ class Application:
         return f"{self.email_address}. Wants a {self.job_title} job in {self.job_location}"
 
 
+
