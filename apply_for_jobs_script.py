@@ -13,6 +13,7 @@ class JobApplication:
         self.all_job_urls = []
 
     def apply_for_jobs(self):
+        """Our main function that executes our methods to apply for jobs"""
         self.login()
 
         # Now that we're setup, we have to find out how many page results there are.
@@ -25,6 +26,7 @@ class JobApplication:
         self.get_all_jobs_urls()
 
     def search_for_jobs(self, page_number=1):
+        """Loads a job search result webpage with a job title, job location, and page number (default = 1)"""
         job_query_url = f"https://findajob.dwp.gov.uk/search?q={self.application.job_title}&w={self.application.job_location}&p={page_number}"
         self.driver.get(job_query_url)
         time.sleep(2)
@@ -47,6 +49,10 @@ class JobApplication:
         password_input_form_element.send_keys(self.application.password, Keys.ENTER)
 
         time.sleep(5)
+        if self.driver.title == "Sign in":
+            raise ValueError("Invalid login credentials!")
+        else:
+            print("Sucessfully logged in")
 
     def setup_driver(self) -> webdriver:
         """Creates a driver with detatch mode; this helps us see if the script is working well whilst developing."""
@@ -75,10 +81,13 @@ class JobApplication:
 
             for element in elements:
                 url = element.get_attribute("href")
+
+                # The urls we get is like: https://findajob.dwp.gov.uk/details/7784066; it doesn't actually direct to the form, just details
+                # But if we change the "details" to "apply" then it takes us to the application... so change this
+                url = url.replace("details", "apply")
                 self.all_job_urls.append(url)
 
         print("Number of found applications: %i" % len(self.all_job_urls))
-
 
         
 def apply_for_jobs(application: "Application"):
