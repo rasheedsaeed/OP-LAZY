@@ -24,3 +24,14 @@
 2021-12-29 10:21:54,039, INFO, login, Sucessfully logged in!
 2021-12-29 10:22:33,878, INFO, login, Logging in with hfzcvdfhzmfbqjaiap@kvhrr.com. Wants a Cleaner job in Wirral
 2021-12-29 10:22:37,502, INFO, login, Sucessfully logged in!
+2021-12-29 10:32:09,619, INFO, login, Logging in with hfzcvdfhzmfbqjaiap@kvhrr.com. Wants a Cleaner job in Wirral
+2021-12-29 10:32:13,274, INFO, login, Sucessfully logged in!
+2021-12-29 10:32:50,349, INFO, login, Logging in with hfzcvdfhzmfbqjaiap@kvhrr.com. Wants a Cleaner job in Wirral
+2021-12-29 10:32:53,357, ERROR, login, Exception happened whilst try to load the login page! Exception: Message: TimedPromise timed out after 3000 ms
+Stacktrace:
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.jsm:181:5
+TimeoutError@chrome://remote/content/shared/webdriver/Errors.jsm:450:5
+bail@chrome://remote/content/marionette/sync.js:230:19
+
+2021-12-29 10:33:07,935, INFO, login, Logging in with hfzcvdfhzmfbqjaiap@kvhrr.com. Wants a Cleaner job in Wirral
+2021-12-29 10:33:11,580, INFO, login, Sucessfully logged in!

@@ -172,11 +172,12 @@ class GetJob:
     def get_number_of_pages_from_search_for_jobs_results(self) -> int:
         """Grabs the last item from the pager-items to determine the number of pages"""
         xpath_str: str = "//ul[@class='pager-items']/li[last()]"
-        element = self.driver.find_element_by_xpath(xpath_str)
-        print(type(element))
-        element_value = element.text
-        number_of_pages = int(element_value)
+        element: "WebElement" = self.driver.find_element_by_xpath(xpath_str)
+        
+        element_value: str = element.text
+        number_of_pages: int = int(element_value)
 
+        logging.info(f"Grabbing number of pages from a search result. {number_of_pages} found!")
         return number_of_pages
 
     def get_all_jobs_urls(self):
