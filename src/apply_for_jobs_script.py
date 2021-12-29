@@ -8,7 +8,7 @@ import time
 
 class GetJob:
     def __init__(self, application: "Application"):
-        self.driver = self.setup_driver()
+        
         self.application = application
 
         # Results
@@ -18,6 +18,7 @@ class GetJob:
 
     def find_and_apply_for_jobs(self):
         """Our main function that executes our methods to apply for jobs"""
+        self.driver = self.setup_driver()
         self.login()
 
         # Now that we're setup, we have to find out how many page results there are.
@@ -147,7 +148,7 @@ class GetJob:
     def setup_driver(self) -> webdriver:
         """Creates a driver with detatch mode; this helps us see if the script is working well whilst developing."""
         driver = webdriver.Firefox()
-        driver.set_page_load_timeout(6)
+        driver.set_page_load_timeout(3)
         return driver
 
     def get_number_of_pages_from_search_for_jobs_results(self) -> int:
