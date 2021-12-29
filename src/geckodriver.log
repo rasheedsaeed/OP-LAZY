@@ -59,3 +59,69 @@ DevTools listening on ws://localhost:41079/devtools/browser/7a21b382-6e1d-4f96-8
 1640769805675	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
 1640769814305	Marionette	INFO	Stopped listening on port 40097
 console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+1640769864250	geckodriver	INFO	Listening on 127.0.0.1:58549
+1640769864255	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "--remote-debugging-port" "50975" "-no-remote" "-profile" "/tmp/rust_mozprofilecERisJ"
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+1640769865024	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofilecERisJ/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:50975/devtools/browser/54e91e84-66bb-447f-ab78-d44225ab221c
+1640769866297	Marionette	INFO	Listening on port 35509
+1640769866391	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+1640770121385	geckodriver	INFO	Listening on 127.0.0.1:56005
+1640770121389	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "--remote-debugging-port" "45497" "-no-remote" "-profile" "/tmp/rust_mozprofileguDeoO"
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+1640770122157	Marionette	INFO	Marionette enabled
+ATTENTION: default value of option mesa_glthread overridden by environment.
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofileguDeoO/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:45497/devtools/browser/d4ef166a-5943-4c36-841e-ec17b7cd5ea4
+1640770123670	Marionette	INFO	Listening on port 38811
+1640770123715	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+1640770130070	Marionette	INFO	Stopped listening on port 38811
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+JavaScript error: chrome://remote/content/marionette/cert.js, line 55: NS_ERROR_NOT_AVAILABLE: Component returned failure code: 0x80040111 (NS_ERROR_NOT_AVAILABLE) [nsICertOverrideService.setDisableAllSecurityChecksAndLetAttackersInterceptMyData]
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1640770284267	geckodriver	INFO	Listening on 127.0.0.1:42821
+1640770284274	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "--remote-debugging-port" "52601" "-no-remote" "-profile" "/tmp/rust_mozprofileTO47rx"
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+1640770285029	Marionette	INFO	Marionette enabled
+ATTENTION: default value of option mesa_glthread overridden by environment.
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofileTO47rx/search.json.mozlz4", (void 0)))
+console.error: Region.jsm: "Error fetching region" (new TypeError("NetworkError when attempting to fetch resource.", ""))
+console.error: Region.jsm: "Failed to fetch region" (new Error("NO_RESULT", "resource://gre/modules/Region.jsm", 419))
+DevTools listening on ws://localhost:52601/devtools/browser/f73d0903-ec4f-454c-acc6-118d6b3cb24e
+1640770286384	Marionette	INFO	Listening on port 42599
+1640770286508	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+1640770304714	geckodriver	INFO	Listening on 127.0.0.1:58733
+1640770304718	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "--remote-debugging-port" "57151" "-no-remote" "-profile" "/tmp/rust_mozprofileDuKaUa"
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+1640770305508	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofileDuKaUa/search.json.mozlz4", (void 0)))
+console.error: Region.jsm: "Error fetching region" (new TypeError("NetworkError when attempting to fetch resource.", ""))
+console.error: Region.jsm: "Failed to fetch region" (new Error("NO_RESULT", "resource://gre/modules/Region.jsm", 419))
+DevTools listening on ws://localhost:57151/devtools/browser/b7630758-690e-4c10-9cad-8d02fe6dbaf9
+1640770306731	Marionette	INFO	Listening on port 41667
+1640770306867	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+1640770310861	Marionette	INFO	Stopped listening on port 41667
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+JavaScript error: chrome://remote/content/marionette/cert.js, line 55: NS_ERROR_NOT_AVAILABLE: Component returned failure code: 0x80040111 (NS_ERROR_NOT_AVAILABLE) [nsICertOverrideService.setDisableAllSecurityChecksAndLetAttackersInterceptMyData]
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+

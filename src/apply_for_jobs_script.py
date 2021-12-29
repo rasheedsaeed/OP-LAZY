@@ -5,7 +5,8 @@ from selenium.common.exceptions import TimeoutException
 
 import time
 import logging
-logging.basicConfig(filename='app.log', filemode='w', format='%(levelname)s: %(message)s')
+LOGGING_FORMAT = "%(asctime)s, %(levelname)s, %(funcName)s, %(message)s"
+logging.basicConfig(filename='app.log', level=logging.INFO, format=LOGGING_FORMAT)
 
 
 class GetJob:

@@ -3,8 +3,8 @@ from apply_for_jobs_script import find_and_apply_for_jobs
 
 if __name__ == "__main__":
     # Credentials
-    email_address: str = ""
-    password: str = ""
+    email_address: str = "wnvpgxegqfvqzbftxd@bvhrk.com"
+    password: str = "Password1!"
 
     # Job specific
     job_title: str = ""
