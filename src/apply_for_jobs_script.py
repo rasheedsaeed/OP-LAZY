@@ -7,7 +7,7 @@ import time
 
 import logging
 LOGGING_FORMAT = "%(asctime)s, %(levelname)s, %(funcName)s, %(message)s"
-logging.basicConfig(filename='app.log', level=logging.INFO, format=LOGGING_FORMAT)
+logging.basicConfig(filename='../logs/app.log', level=logging.INFO, format=LOGGING_FORMAT)
 logging.getLogger().addHandler(logging.StreamHandler())
 
 
@@ -167,8 +167,12 @@ class GetJob:
 
     def setup_driver(self) -> webdriver:
         """Creates a driver with detatch mode; this helps us see if the script is working well whilst developing."""
-        driver = webdriver.Firefox()
+        firefox_profile_settings = webdriver.FirefoxProfile()   
+        firefox_profile_settings.set_preference("webdriver.log.file", "../logs")
+
+        driver = webdriver.Firefox(log_path='NUL')
         driver.set_page_load_timeout(3)
+        driver.minimize_window()
         return driver
 
     def get_number_of_pages_from_search_for_jobs_results(self) -> int:
