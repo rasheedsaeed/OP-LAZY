@@ -167,19 +167,17 @@ class GetJob:
 
     def setup_driver(self) -> webdriver:
         """Creates a driver with detatch mode; this helps us see if the script is working well whilst developing."""
-        firefox_profile_settings = webdriver.FirefoxProfile()   
-        firefox_profile_settings.set_preference("webdriver.log.file", "../logs")
-
-        driver = webdriver.Firefox(log_path='NUL')
-        driver.set_page_load_timeout(3)
+        driver: webdriver.Firefox = webdriver.Firefox()
         driver.minimize_window()
+        driver.set_page_load_timeout(3)
+
         return driver
 
     def get_number_of_pages_from_search_for_jobs_results(self) -> int:
         """Grabs the last item from the pager-items to determine the number of pages"""
-        xpath_str = "//ul[@class='pager-items']/li[last()]"
+        xpath_str: str = "//ul[@class='pager-items']/li[last()]"
         element = self.driver.find_element_by_xpath(xpath_str)
-
+        print(type(element))
         element_value = element.text
         number_of_pages = int(element_value)
 
