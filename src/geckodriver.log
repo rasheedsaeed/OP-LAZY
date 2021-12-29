@@ -18,3 +18,200 @@ console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkErr
 
 ###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
 
+1640772934370	geckodriver	INFO	Listening on 127.0.0.1:52019
+1640772934374	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "--remote-debugging-port" "52607" "-no-remote" "-profile" "/tmp/rust_mozprofile0VWn9P"
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+1640772935129	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofile0VWn9P/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:52607/devtools/browser/0e2b693a-735d-4ca5-a204-ccb271e5ad4d
+1640772936430	Marionette	INFO	Listening on port 35477
+1640772936516	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+1640772941553	Marionette	WARN	TimedPromise timed out after 5000 ms: stacktrace:
+TimedPromise/<@chrome://remote/content/marionette/sync.js:238:19
+TimedPromise@chrome://remote/content/marionette/sync.js:223:10
+GeckoDriver.prototype.minimizeWindow@chrome://remote/content/marionette/driver.js:2315:11
+JavaScript error: https://www.aplitrak.com/?adid=eWFzZW1pbmQuODUwMTIuMTA2MzNAdHJhdmFpbC5hcGxpdHJhay5jb20, line 88: ReferenceError: stLight is not defined
+1640772974436	Marionette	INFO	Stopped listening on port 35477
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+JavaScript error: chrome://remote/content/marionette/cert.js, line 55: NS_ERROR_NOT_AVAILABLE: Component returned failure code: 0x80040111 (NS_ERROR_NOT_AVAILABLE) [nsICertOverrideService.setDisableAllSecurityChecksAndLetAttackersInterceptMyData]
+1640772974515	geckodriver::marionette	ERROR	Failed to close browser connection: Socket not connected (os error 107)
+[2021-12-29T10:16:14Z ERROR glean] Can't persist ping lifetime data: Error { kind: Rkv(IoError(Os { code: 2, kind: NotFound, message: "No such file or directory" })) }
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1640772990271	geckodriver	INFO	Listening on 127.0.0.1:58741
+1640772990275	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "--remote-debugging-port" "36585" "-no-remote" "-profile" "/tmp/rust_mozprofileHcsmOM"
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+1640772991076	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofileHcsmOM/search.json.mozlz4", (void 0)))
+console.error: Region.jsm: "Error fetching region" (new TypeError("NetworkError when attempting to fetch resource.", ""))
+console.error: Region.jsm: "Failed to fetch region" (new Error("NO_RESULT", "resource://gre/modules/Region.jsm", 419))
+DevTools listening on ws://localhost:36585/devtools/browser/8882d3bf-2fa3-4538-861f-ede4a9c03cf1
+1640772992539	Marionette	INFO	Listening on port 39125
+1640772992603	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+1640772997615	Marionette	WARN	TimedPromise timed out after 5000 ms: stacktrace:
+TimedPromise/<@chrome://remote/content/marionette/sync.js:238:19
+TimedPromise@chrome://remote/content/marionette/sync.js:223:10
+GeckoDriver.prototype.minimizeWindow@chrome://remote/content/marionette/driver.js:2315:11
+JavaScript error: https://www.aplitrak.com/?adid=eWFzZW1pbmQuODUwMTIuMTA2MzNAdHJhdmFpbC5hcGxpdHJhay5jb20, line 88: ReferenceError: stLight is not defined
+1640773029357	Marionette	INFO	Stopped listening on port 39125
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+JavaScript error: chrome://remote/content/marionette/cert.js, line 55: NS_ERROR_NOT_AVAILABLE: Component returned failure code: 0x80040111 (NS_ERROR_NOT_AVAILABLE) [nsICertOverrideService.setDisableAllSecurityChecksAndLetAttackersInterceptMyData]
+1640773029430	geckodriver::marionette	ERROR	Failed to close browser connection: Socket not connected (os error 107)
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1640773060308	geckodriver	INFO	Listening on 127.0.0.1:36557
+1640773060312	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "--remote-debugging-port" "33863" "-no-remote" "-profile" "/tmp/rust_mozprofile6SOeAW"
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+1640773061102	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofile6SOeAW/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:33863/devtools/browser/282942c7-d575-4ed7-946a-c85985f7d0ba
+1640773062638	Marionette	INFO	Listening on port 36493
+1640773062739	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+1640773067752	Marionette	WARN	TimedPromise timed out after 5000 ms: stacktrace:
+TimedPromise/<@chrome://remote/content/marionette/sync.js:238:19
+TimedPromise@chrome://remote/content/marionette/sync.js:223:10
+GeckoDriver.prototype.minimizeWindow@chrome://remote/content/marionette/driver.js:2315:11
+1640773111462	Marionette	INFO	Stopped listening on port 36493
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+JavaScript error: chrome://remote/content/marionette/cert.js, line 55: NS_ERROR_NOT_AVAILABLE: Component returned failure code: 0x80040111 (NS_ERROR_NOT_AVAILABLE) [nsICertOverrideService.setDisableAllSecurityChecksAndLetAttackersInterceptMyData]
+1640773111537	geckodriver::marionette	ERROR	Failed to close browser connection: Socket not connected (os error 107)
+[2021-12-29T10:18:31Z ERROR glean] Can't persist ping lifetime data: Error { kind: Rkv(IoError(Os { code: 2, kind: NotFound, message: "No such file or directory" })) }
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1640773137982	geckodriver	INFO	Listening on 127.0.0.1:37121
+1640773137987	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "--remote-debugging-port" "52033" "-no-remote" "-profile" "/tmp/rust_mozprofileI9Xm03"
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+1640773138776	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofileI9Xm03/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:52033/devtools/browser/9924689a-ab00-484c-b2a5-cfd47e910949
+1640773140244	Marionette	INFO	Listening on port 44667
+1640773140311	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+1640773145323	Marionette	WARN	TimedPromise timed out after 5000 ms: stacktrace:
+TimedPromise/<@chrome://remote/content/marionette/sync.js:238:19
+TimedPromise@chrome://remote/content/marionette/sync.js:223:10
+GeckoDriver.prototype.minimizeWindow@chrome://remote/content/marionette/driver.js:2315:11
+JavaScript error: https://www.aplitrak.com/?adid=eWFzZW1pbmQuODUwMTIuMTA2MzNAdHJhdmFpbC5hcGxpdHJhay5jb20, line 88: ReferenceError: stLight is not defined
+1640773188113	Marionette	INFO	Stopped listening on port 44667
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+JavaScript error: chrome://remote/content/marionette/cert.js, line 55: NS_ERROR_NOT_AVAILABLE: Component returned failure code: 0x80040111 (NS_ERROR_NOT_AVAILABLE) [nsICertOverrideService.setDisableAllSecurityChecksAndLetAttackersInterceptMyData]
+1640773188193	geckodriver::marionette	ERROR	Failed to close browser connection: Socket not connected (os error 107)
+[2021-12-29T10:19:48Z ERROR glean] Can't persist ping lifetime data: Error { kind: Rkv(IoError(Os { code: 2, kind: NotFound, message: "No such file or directory" })) }
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1640773227759	geckodriver	INFO	Listening on 127.0.0.1:44959
+1640773227763	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "--remote-debugging-port" "50505" "-no-remote" "-profile" "/tmp/rust_mozprofilell4V6n"
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+1640773228545	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofilell4V6n/search.json.mozlz4", (void 0)))
+console.error: Region.jsm: "Error fetching region" (new TypeError("NetworkError when attempting to fetch resource.", ""))
+console.error: Region.jsm: "Failed to fetch region" (new Error("NO_RESULT", "resource://gre/modules/Region.jsm", 419))
+DevTools listening on ws://localhost:50505/devtools/browser/65bfc193-5f63-4a6b-9c8d-4d208b6e115a
+1640773229992	Marionette	INFO	Listening on port 44283
+1640773230088	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+1640773235100	Marionette	WARN	TimedPromise timed out after 5000 ms: stacktrace:
+TimedPromise/<@chrome://remote/content/marionette/sync.js:238:19
+TimedPromise@chrome://remote/content/marionette/sync.js:223:10
+GeckoDriver.prototype.minimizeWindow@chrome://remote/content/marionette/driver.js:2315:11
+1640773251299	Marionette	INFO	Stopped listening on port 44283
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+JavaScript error: chrome://remote/content/marionette/cert.js, line 55: NS_ERROR_NOT_AVAILABLE: Component returned failure code: 0x80040111 (NS_ERROR_NOT_AVAILABLE) [nsICertOverrideService.setDisableAllSecurityChecksAndLetAttackersInterceptMyData]
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1640773262507	geckodriver	INFO	Listening on 127.0.0.1:58087
+1640773262512	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "--remote-debugging-port" "58845" "-no-remote" "-profile" "/tmp/rust_mozprofileFpQGx0"
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+1640773263268	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofileFpQGx0/search.json.mozlz4", (void 0)))
+console.error: Region.jsm: "Error fetching region" (new TypeError("NetworkError when attempting to fetch resource.", ""))
+console.error: Region.jsm: "Failed to fetch region" (new Error("NO_RESULT", "resource://gre/modules/Region.jsm", 419))
+DevTools listening on ws://localhost:58845/devtools/browser/421aa1cf-ee3b-4408-97e3-aae3db574ced
+1640773264696	Marionette	INFO	Listening on port 33519
+1640773264735	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+1640773269748	Marionette	WARN	TimedPromise timed out after 5000 ms: stacktrace:
+TimedPromise/<@chrome://remote/content/marionette/sync.js:238:19
+TimedPromise@chrome://remote/content/marionette/sync.js:223:10
+GeckoDriver.prototype.minimizeWindow@chrome://remote/content/marionette/driver.js:2315:11
+JavaScript error: https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js, line 3: TypeError: a is undefined
+1640773288085	Marionette	INFO	Stopped listening on port 33519
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1640773303124	geckodriver	INFO	Listening on 127.0.0.1:58561
+1640773303131	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "--remote-debugging-port" "43885" "-no-remote" "-profile" "/tmp/rust_mozprofileC64Av3"
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+1640773303889	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofileC64Av3/search.json.mozlz4", (void 0)))
+console.error: Region.jsm: "Error fetching region" (new TypeError("NetworkError when attempting to fetch resource.", ""))
+console.error: Region.jsm: "Failed to fetch region" (new Error("NO_RESULT", "resource://gre/modules/Region.jsm", 419))
+DevTools listening on ws://localhost:43885/devtools/browser/7d7eb71a-93c7-4ee2-bf64-a301491961e7
+1640773305332	Marionette	INFO	Listening on port 41809
+1640773305358	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+1640773310376	Marionette	WARN	TimedPromise timed out after 5000 ms: stacktrace:
+TimedPromise/<@chrome://remote/content/marionette/sync.js:238:19
+TimedPromise@chrome://remote/content/marionette/sync.js:223:10
+GeckoDriver.prototype.minimizeWindow@chrome://remote/content/marionette/driver.js:2315:11
+JavaScript error: https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js, line 3: TypeError: a is undefined
+1640773318844	Marionette	INFO	Stopped listening on port 41809
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+JavaScript error: chrome://remote/content/marionette/cert.js, line 55: NS_ERROR_NOT_AVAILABLE: Component returned failure code: 0x80040111 (NS_ERROR_NOT_AVAILABLE) [nsICertOverrideService.setDisableAllSecurityChecksAndLetAttackersInterceptMyData]
+1640773318919	geckodriver::marionette	ERROR	Failed to close browser connection: Socket not connected (os error 107)
+[2021-12-29T10:21:59Z ERROR glean] Can't persist ping lifetime data: Error { kind: Rkv(IoError(Os { code: 2, kind: NotFound, message: "No such file or directory" })) }
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1640773346414	geckodriver	INFO	Listening on 127.0.0.1:40387
+1640773346418	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "--remote-debugging-port" "34945" "-no-remote" "-profile" "/tmp/rust_mozprofileXGE5NA"
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+1640773347225	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofileXGE5NA/search.json.mozlz4", (void 0)))
+console.error: Region.jsm: "Error fetching region" (new TypeError("NetworkError when attempting to fetch resource.", ""))
+console.error: Region.jsm: "Failed to fetch region" (new Error("NO_RESULT", "resource://gre/modules/Region.jsm", 419))
+DevTools listening on ws://localhost:34945/devtools/browser/e1c7356f-1150-4049-968a-7eeabcd3f6a1
+1640773348753	Marionette	INFO	Listening on port 38835
+1640773348846	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+1640773353861	Marionette	WARN	TimedPromise timed out after 5000 ms: stacktrace:
+TimedPromise/<@chrome://remote/content/marionette/sync.js:238:19
+TimedPromise@chrome://remote/content/marionette/sync.js:223:10
+GeckoDriver.prototype.minimizeWindow@chrome://remote/content/marionette/driver.js:2315:11
+JavaScript error: https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js, line 3: TypeError: a is undefined
+JavaScript error: https://jobs.kickstart.dwp.gov.uk/?Job%20reference=V0000358884&Job%20title=Cleaner%2FCatering+Assistant&Employer=Woodchurch+CE+Primary+School&Postcode=CH49+7LS, line 75: TypeError: window.GOVUKFrontend is undefined
+JavaScript error: https://jobs.kickstart.dwp.gov.uk/?Job%20reference=V0000367352&Job%20title=Domestic+Cleaner&Employer=Yello+Ltd+%28+Bright+%26+Beautiful+Wirral%29&Postcode=CH48+0RF, line 75: TypeError: window.GOVUKFrontend is undefined
+1640773367619	Marionette	INFO	Stopped listening on port 38835
+JavaScript error: resource://devtools/client/jsonview/Sniffer.jsm, line 53: NS_ERROR_NOT_AVAILABLE: Component returned failure code: 0x80040111 (NS_ERROR_NOT_AVAILABLE) [nsIChannel.contentType]
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+JavaScript error: chrome://remote/content/marionette/cert.js, line 55: NS_ERROR_NOT_AVAILABLE: Component returned failure code: 0x80040111 (NS_ERROR_NOT_AVAILABLE) [nsICertOverrideService.setDisableAllSecurityChecksAndLetAttackersInterceptMyData]
+1640773367685	geckodriver::marionette	ERROR	Failed to close browser connection: Socket not connected (os error 107)
+[2021-12-29T10:22:47Z ERROR glean] Can't persist ping lifetime data: Error { kind: Rkv(IoError(Os { code: 2, kind: NotFound, message: "No such file or directory" })) }
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+

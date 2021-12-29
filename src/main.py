@@ -7,8 +7,8 @@ if __name__ == "__main__":
     password: str = "nevergonnagiveyouup1"
 
     # Job specific
-    job_title: str = "Software"
-    job_location: str = "UK"
+    job_title: str = "Cleaner"
+    job_location: str = "Wirral"
 
     # Details to fill out form
     full_name: str = "TONDO EIGHTEEN"

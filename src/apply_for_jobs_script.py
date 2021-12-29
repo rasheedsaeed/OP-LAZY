@@ -76,15 +76,16 @@ class GetJob:
             cv_dropdown_select_element.select_by_visible_text(
                 self.application.target_cv_name
             )
+            #cv_dropdown_select_element.send_keys(Keys.ENTER)
 
+            
             # Submit the application
             full_name_form_element.send_keys(Keys.ENTER)
 
             # If I don't put a sleep here the application doesn't go through? Not a fuck what's happening
-            time.sleep(1)
             self.total_number_of_jobs_applied += 1
             print(f"Sucessfully applied for for job: {self.driver.current_url}")
-
+            
         except Exception as e:
             print(
                 "Unknown exception happened when applying for {self.driver.current_url}. Error: {e}"
@@ -112,13 +113,9 @@ class GetJob:
         return False
 
     def search_for_jobs(self, page_number=1):
-        """Loads a job search result webpage with a job title, job location, and page number (default = 1)"""
-        job_query_url = f"https://findajob.dwp.gov.uk/search?st=30000&cti=full_time&q={self.application.job_title}&w={self.application.job_location}&p={page_number}&pp=50"
-
-        try:
-            self.driver.get(job_query_url)
-        except TimeoutException:
-            print(f"Session timed out! Oh well. Page number: {page_number}")
+        """Loads a job title and location results with a page number (default 1)"""
+        job_query_url = f"https://findajob.dwp.gov.uk/search?q={self.application.job_title}&w={self.application.job_location}&p={page_number}&pp=50"
+        self.driver.get(job_query_url)
 
     def login(self):
         """Login to the https://findajob.dwp.gov.uk/ using the Application's credentials"""
