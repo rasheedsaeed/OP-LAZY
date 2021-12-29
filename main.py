@@ -9,10 +9,14 @@ def unpack_sys_arg_values(values: list):
 if __name__ == "__main__":
     email_address = "wnvpgxegqfvqzbftxd@bvhrk.com"
     password = "Password1!"
-    job_title = "Cleaner"
-    job_location = "Wirral"
+    job_title = ""
+    job_location = "UK"
     full_name = "Claire Shakeshaft"
-    message = "I have 20 years of experiance with many years of supervising & managamenet."
+    message = """
+    I have over 20 years of customer experiance and many years of supervisor & managerial experiance. 
+
+    I am willing to relocate and prefer a possibility to live-in.
+    """
     target_cv_name = "Claire_Shakeshaft___CV.pdf"
 
     application = Application(

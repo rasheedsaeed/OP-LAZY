@@ -1,5 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import Select
+from selenium.common.exceptions import TimeoutException
 
 import time
 
@@ -10,7 +12,8 @@ class JobApplication:
 
         # Results
         self.number_of_search_results_page = 1
-        self.all_job_urls = []
+        self.all_job_applications_urls = []
+        self.total_number_of_jobs_applied = 0
 
     def apply_for_jobs(self):
         """Our main function that executes our methods to apply for jobs"""
@@ -24,15 +27,88 @@ class JobApplication:
 
         # Now we have the number of pages, we can go through each page and extract each job application url
         self.get_all_jobs_urls()
+        self.apply_to_all_jobs()
+
+        print(f"Total number of jobs applied for: {self.total_number_of_jobs_applied}")
+
+    def apply_to_all_jobs(self):
+        number_of_job_applications_urls = len(self.all_job_applications_urls)
+        for job_counter, job_application_url in enumerate(self.all_job_applications_urls):
+            print(f"Job number {job_counter} out of {number_of_job_applications_urls}")
+            if self.job_application_is_on_findajob_website(job_application_url):
+                self.fill_out_findajob_form()
+
+        print(self.total_number_of_jobs_applied)
+
+    def fill_out_findajob_form(self):
+        print(f"Applying for job: {self.driver.current_url}")
+        if "findajob.dwp.gov.uk/apply" not in self.driver.current_url:
+            print("Invalid url: %s" % self.driver.current_url)  
+            return
+            
+        try:
+            # Full name
+            full_name_form_id = "full_name"
+            full_name_form_element = self.driver.find_element_by_id(full_name_form_id)
+            full_name_form_element.clear()
+            full_name_form_element.send_keys(self.application.full_name)
+
+            # Message
+            message_form_id = "message"
+            message_form_element = self.driver.find_element_by_id(message_form_id)
+            message_form_element.clear()
+            message_form_element.send_keys(self.application.message)
+
+            # CV
+            cv_dropdown_id = "cv_id"
+            cv_dropdown_select_element = Select(self.driver.find_element_by_id(cv_dropdown_id))
+            cv_dropdown_select_element.select_by_visible_text(self.application.target_cv_name)
+
+            # Submit the application
+            full_name_form_element.send_keys(Keys.ENTER)
+
+            # If I don't put a sleep here the application doesn't go through? Not a fuck what's happening
+            time.sleep(1)
+            self.total_number_of_jobs_applied += 1
+            print(f"Sucessfully applied for for job: {self.driver.current_url}")
+
+        except Exception as e:
+            print("Unknown exception happened when applying for {self.driver.current_url}. Error: {e}")
+
+    def job_application_is_on_findajob_website(self, job_application_url: str) -> bool:
+
+        try:
+            print(f"Determining if {job_application_url} is on findajob... loading")
+            self.driver.get(job_application_url)
+            print("Loaded!")
+
+            # Sometimes the application is gone but the page still exists! 
+            # This causes freezes for some reason...
+            if self.driver.current_url == "https://findajob.dwp.gov.uk/error.html":
+                print("This is an error page! The job no longer exists")
+                return False
+
+
+            if "findajob.dwp.gov.uk" in self.driver.current_url:
+                print(f"{job_application_url} is on findajob!")
+                return True
+        except Exception as e:
+            print(f"Unknonw exception: {e}")
+
+        return False
 
     def search_for_jobs(self, page_number=1):
         """Loads a job search result webpage with a job title, job location, and page number (default = 1)"""
-        job_query_url = f"https://findajob.dwp.gov.uk/search?q={self.application.job_title}&w={self.application.job_location}&p={page_number}"
-        self.driver.get(job_query_url)
-        time.sleep(2)
+        job_query_url = f"https://findajob.dwp.gov.uk/search?st=30000&cti=full_time&q={self.application.job_title}&w={self.application.job_location}&p={page_number}&pp=50"
+
+        try:
+            self.driver.get(job_query_url)
+        except TimeoutException:
+            print(f"Session timed out! Oh well. Page number: {page_number}")
 
     def login(self):
         """Login to the https://findajob.dwp.gov.uk/ using the Application's credentials"""
+        print("Logging in...")
         self.driver.get("https://findajob.dwp.gov.uk/sign-in")
 
         # Enter credentials
@@ -48,7 +124,7 @@ class JobApplication:
         # Once we've entered our password, we'll hit ENTER to login... this saves us finding and clicking the submit button
         password_input_form_element.send_keys(self.application.password, Keys.ENTER)
 
-        time.sleep(5)
+        time.sleep(3)
         if self.driver.title == "Sign in":
             raise ValueError("Invalid login credentials!")
         else:
@@ -56,10 +132,8 @@ class JobApplication:
 
     def setup_driver(self) -> webdriver:
         """Creates a driver with detatch mode; this helps us see if the script is working well whilst developing."""
-        options = webdriver.ChromeOptions()
-        options.add_experimental_option("detach", True)
-
-        driver = webdriver.Chrome(options=options)
+        driver = webdriver.Firefox()
+        driver.set_page_load_timeout(6)
         return driver
 
     def get_number_of_pages_from_search_for_jobs_results(self) -> int:
@@ -74,6 +148,7 @@ class JobApplication:
 
     def get_all_jobs_urls(self):
         xpath_str = "//div[@class='search-result']/h3[last()]/a[last()]"
+        print("Finding jobs listings...")
 
         for page_number in range(1, self.number_of_search_results_page + 1):
             self.search_for_jobs(page_number)
@@ -85,9 +160,9 @@ class JobApplication:
                 # The urls we get is like: https://findajob.dwp.gov.uk/details/7784066; it doesn't actually direct to the form, just details
                 # But if we change the "details" to "apply" then it takes us to the application... so change this
                 url = url.replace("details", "apply")
-                self.all_job_urls.append(url)
+                self.all_job_applications_urls.append(url)
 
-        print("Number of found applications: %i" % len(self.all_job_urls))
+        print("Number of found applications: %i" % len(self.all_job_applications_urls))
 
         
 def apply_for_jobs(application: "Application"):
