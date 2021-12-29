@@ -6,7 +6,7 @@ from selenium.common.exceptions import TimeoutException
 import time
 
 
-class JobApplication:
+class GetJob:
     def __init__(self, application: "Application"):
         self.driver = self.setup_driver()
         self.application = application
@@ -16,7 +16,7 @@ class JobApplication:
         self.all_job_applications_urls = []
         self.total_number_of_jobs_applied = 0
 
-    def apply_for_jobs(self):
+    def find_and_apply_for_jobs(self):
         """Our main function that executes our methods to apply for jobs"""
         self.login()
 
@@ -179,6 +179,7 @@ class JobApplication:
         print("Number of found applications: %i" % len(self.all_job_applications_urls))
 
 
-def apply_for_jobs(application: "Application"):
-    job_application = JobApplication(application)
-    job_application.apply_for_jobs()
+def find_and_apply_for_jobs(application: "Application"):
+    """Creates a GetJob obj using an Application obj then begins finding and applying for jobs."""
+    job_application: GetJob = GetJob(application)
+    job_application.find_and_apply_for_jobs()
