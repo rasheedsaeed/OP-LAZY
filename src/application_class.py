@@ -1,4 +1,5 @@
 class Application:
+    """Application class"""
     def __init__(
         self,
         email_address: str,
@@ -9,17 +10,19 @@ class Application:
         job_title: str,
         job_location: str,
     ) -> None:
-        self.email_address = email_address
-        self.password = password
+        """Instantiates the passed variables"""
+        self.email_address: str = email_address
+        self.password: str = password
 
-        self.job_title = job_title
-        self.job_location = job_location
+        self.job_title: str = job_title
+        self.job_location: str = job_location
 
-        self.full_name = full_name
-        self.cover_letter = cover_letter
-        self.target_cv_name = target_cv_name
+        self.full_name: str = full_name
+        self.cover_letter: str = cover_letter
+        self.target_cv_name: str = target_cv_name
 
     def __str__(self) -> str:
+        """Returns the email address, job title, and job location is a clearly conveyed sentence"""
         return (
             f"{self.email_address}. Wants a {self.job_title} job in {self.job_location}"
         )
