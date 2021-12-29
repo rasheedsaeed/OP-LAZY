@@ -4,26 +4,24 @@ from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import TimeoutException
 
 import time
+import logging
+logging.basicConfig(filename='app.log', filemode='w', format='%(levelname)s: %(message)s')
 
 
 class GetJob:
     def __init__(self, application: "Application"):
-        
-        self.application = application
+        self.application: "Application" = application
 
         # Results
-        self.number_of_search_results_page = 1
-        self.all_job_applications_urls = []
-        self.total_number_of_jobs_applied = 0
+        self.number_of_search_results_page: int = 1
+        self.all_job_applications_urls: list = []
+        self.total_number_of_jobs_applied: int = 0
 
     def find_and_apply_for_jobs(self):
         """Our main function that executes our methods to apply for jobs"""
         self.driver = self.setup_driver()
         self.login()
 
-        # Now that we're setup, we have to find out how many page results there are.
-        # We need to do this to find the hyperlinks for the job application(s) themselves
-        # So we simply do a init search_for_job which gives us the number of pages as the bottom of the page
         self.search_for_jobs()
         self.number_of_search_results_page = (
             self.get_number_of_pages_from_search_for_jobs_results()
@@ -121,14 +119,22 @@ class GetJob:
 
     def login(self):
         """Login to the https://findajob.dwp.gov.uk/ using the Application's credentials"""
-        print("Logging in...")
-        self.driver.get("https://findajob.dwp.gov.uk/sign-in")
+        logging.info(f"Logging in with {self.application}")
+
+        try:
+            self.driver.get("https://findajob.dwp.gov.uk/sign-in")
+        except Exception as e:
+            logging.error(f"Exception happened whilst try to load the login page! Exception: {e}")
+            exit()
 
         # Enter credentials
-        email_input_form_id = "email"
-        email_input_form_element = self.driver.find_element_by_id(email_input_form_id)
-        email_input_form_element.clear()
-        email_input_form_element.send_keys(self.application.email_address)
+        try:
+            email_input_form_id = "email"
+            email_input_form_element = self.driver.find_element_by_id(email_input_form_id)
+            email_input_form_element.clear()
+            email_input_form_element.send_keys(self.application.email_address)
+        except Exception as e:
+            logging.ERROR(f"Couldn't insert email address details. Exception: {e}")
 
         password_input_form_id = "password"
         password_input_form_element = self.driver.find_element_by_id(
@@ -139,6 +145,7 @@ class GetJob:
         # Once we've entered our password, we'll hit ENTER to login... this saves us finding and clicking the submit button
         password_input_form_element.send_keys(self.application.password, Keys.ENTER)
 
+        # TODO: Check if this is really required
         time.sleep(3)
         if self.driver.title == "Sign in":
             raise ValueError("Invalid login credentials!")
@@ -180,7 +187,8 @@ class GetJob:
         print("Number of found applications: %i" % len(self.all_job_applications_urls))
 
 
-def find_and_apply_for_jobs(application: "Application"):
+def find_and_apply_for_jobs(application: "Application") -> None:
     """Creates a GetJob obj using an Application obj then begins finding and applying for jobs."""
     job_application: GetJob = GetJob(application)
     job_application.find_and_apply_for_jobs()
+
