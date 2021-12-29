@@ -4,9 +4,11 @@ from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import TimeoutException
 
 import time
+
 import logging
 LOGGING_FORMAT = "%(asctime)s, %(levelname)s, %(funcName)s, %(message)s"
 logging.basicConfig(filename='app.log', level=logging.INFO, format=LOGGING_FORMAT)
+logging.getLogger().addHandler(logging.StreamHandler())
 
 
 class GetJob:
@@ -135,23 +137,33 @@ class GetJob:
             email_input_form_element.clear()
             email_input_form_element.send_keys(self.application.email_address)
         except Exception as e:
-            logging.ERROR(f"Couldn't insert email address details. Exception: {e}")
+            logging.error(f"Couldn't insert email address. Exception: {e}")
+            exit()
 
-        password_input_form_id = "password"
-        password_input_form_element = self.driver.find_element_by_id(
-            password_input_form_id
-        )
-        password_input_form_element.clear()
+        try:
+            password_input_form_id = "password"
+            password_input_form_element = self.driver.find_element_by_id(
+                password_input_form_id
+            )
+            password_input_form_element.clear()
+            password_input_form_element.send_keys(self.application.password)
+        except Exception as e:
+            logging.error(f"Couldn't insert password. Exception: {e}")
+            exit()
 
         # Once we've entered our password, we'll hit ENTER to login... this saves us finding and clicking the submit button
-        password_input_form_element.send_keys(self.application.password, Keys.ENTER)
+        try:
+            password_input_form_element.send_keys(Keys.ENTER)
+        except Exception as e:
+            logging.error(f"Couldn't submit login form. Exception: {e}")
+            exit()
 
-        # TODO: Check if this is really required
-        time.sleep(3)
+        time.sleep(3) # This is indeed required!
         if self.driver.title == "Sign in":
-            raise ValueError("Invalid login credentials!")
+            logging.error("Invalid credentials!")
+            exit()
         else:
-            print("Sucessfully logged in")
+            logging.info("Sucessfully logged in!")
 
     def setup_driver(self) -> webdriver:
         """Creates a driver with detatch mode; this helps us see if the script is working well whilst developing."""
