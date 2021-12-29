@@ -11,12 +11,15 @@ class Application:
         job_location: str,
     ) -> None:
         """Instantiates the passed variables"""
+        # Credentials
         self.email_address: str = email_address
         self.password: str = password
 
+        # Job specific
         self.job_title: str = job_title
         self.job_location: str = job_location
 
+        # Details to fill out form
         self.full_name: str = full_name
         self.cover_letter: str = cover_letter
         self.target_cv_name: str = target_cv_name
