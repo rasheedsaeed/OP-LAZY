@@ -5,6 +5,7 @@ from selenium.common.exceptions import TimeoutException
 
 import time
 
+
 class JobApplication:
     def __init__(self, application: "Application"):
         self.driver = self.setup_driver()
@@ -23,7 +24,9 @@ class JobApplication:
         # We need to do this to find the hyperlinks for the job application(s) themselves
         # So we simply do a init search_for_job which gives us the number of pages as the bottom of the page
         self.search_for_jobs()
-        self.number_of_search_results_page = self.get_number_of_pages_from_search_for_jobs_results()
+        self.number_of_search_results_page = (
+            self.get_number_of_pages_from_search_for_jobs_results()
+        )
 
         # Now we have the number of pages, we can go through each page and extract each job application url
         self.get_all_jobs_urls()
@@ -33,7 +36,9 @@ class JobApplication:
 
     def apply_to_all_jobs(self):
         number_of_job_applications_urls = len(self.all_job_applications_urls)
-        for job_counter, job_application_url in enumerate(self.all_job_applications_urls):
+        for job_counter, job_application_url in enumerate(
+            self.all_job_applications_urls
+        ):
             print(f"Job number {job_counter} out of {number_of_job_applications_urls}")
             if self.job_application_is_on_findajob_website(job_application_url):
                 self.fill_out_findajob_form()
@@ -43,9 +48,9 @@ class JobApplication:
     def fill_out_findajob_form(self):
         print(f"Applying for job: {self.driver.current_url}")
         if "findajob.dwp.gov.uk/apply" not in self.driver.current_url:
-            print("Invalid url: %s" % self.driver.current_url)  
+            print("Invalid url: %s" % self.driver.current_url)
             return
-            
+
         try:
             # Full name
             full_name_form_id = "full_name"
@@ -53,16 +58,22 @@ class JobApplication:
             full_name_form_element.clear()
             full_name_form_element.send_keys(self.application.full_name)
 
-            # Message
-            message_form_id = "message"
-            message_form_element = self.driver.find_element_by_id(message_form_id)
-            message_form_element.clear()
-            message_form_element.send_keys(self.application.message)
+            # cover_letter
+            cover_letter_form_id = "cover_letter"
+            cover_letter_form_element = self.driver.find_element_by_id(
+                cover_letter_form_id
+            )
+            cover_letter_form_element.clear()
+            cover_letter_form_element.send_keys(self.application.cover_letter)
 
             # CV
             cv_dropdown_id = "cv_id"
-            cv_dropdown_select_element = Select(self.driver.find_element_by_id(cv_dropdown_id))
-            cv_dropdown_select_element.select_by_visible_text(self.application.target_cv_name)
+            cv_dropdown_select_element = Select(
+                self.driver.find_element_by_id(cv_dropdown_id)
+            )
+            cv_dropdown_select_element.select_by_visible_text(
+                self.application.target_cv_name
+            )
 
             # Submit the application
             full_name_form_element.send_keys(Keys.ENTER)
@@ -73,7 +84,9 @@ class JobApplication:
             print(f"Sucessfully applied for for job: {self.driver.current_url}")
 
         except Exception as e:
-            print("Unknown exception happened when applying for {self.driver.current_url}. Error: {e}")
+            print(
+                "Unknown exception happened when applying for {self.driver.current_url}. Error: {e}"
+            )
 
     def job_application_is_on_findajob_website(self, job_application_url: str) -> bool:
 
@@ -82,12 +95,11 @@ class JobApplication:
             self.driver.get(job_application_url)
             print("Loaded!")
 
-            # Sometimes the application is gone but the page still exists! 
+            # Sometimes the application is gone but the page still exists!
             # This causes freezes for some reason...
             if self.driver.current_url == "https://findajob.dwp.gov.uk/error.html":
                 print("This is an error page! The job no longer exists")
                 return False
-
 
             if "findajob.dwp.gov.uk" in self.driver.current_url:
                 print(f"{job_application_url} is on findajob!")
@@ -118,7 +130,9 @@ class JobApplication:
         email_input_form_element.send_keys(self.application.email_address)
 
         password_input_form_id = "password"
-        password_input_form_element = self.driver.find_element_by_id(password_input_form_id)
+        password_input_form_element = self.driver.find_element_by_id(
+            password_input_form_id
+        )
         password_input_form_element.clear()
 
         # Once we've entered our password, we'll hit ENTER to login... this saves us finding and clicking the submit button
@@ -164,11 +178,7 @@ class JobApplication:
 
         print("Number of found applications: %i" % len(self.all_job_applications_urls))
 
-        
+
 def apply_for_jobs(application: "Application"):
     job_application = JobApplication(application)
     job_application.apply_for_jobs()
-
-
-
-
