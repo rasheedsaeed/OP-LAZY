@@ -2,17 +2,18 @@ from application_class import Application
 from apply_for_jobs_script import apply_for_jobs
 
 if __name__ == "__main__":
-    email_address = "wnvpgxegqfvqzbftxd@bvhrk.com"
-    password = "Password1!"
-    job_title = ""
-    job_location = "UK"
-    full_name = "Claire Shakeshaft"
-    cover_letter = """
-    I have over 20 years of customer experiance and many years of supervisor & managerial experiance. 
+    # Credentials
+    email_address: str = ""
+    password: str = ""
 
-    I am willing to relocate and prefer a possibility to live-in.
-    """
-    target_cv_name = "Claire_Shakeshaft___CV.pdf"
+    # Job specific
+    job_title: str = ""
+    job_location: str = ""
+
+    # Details to fill out form
+    full_name: str = ""
+    cover_letter: str = ""
+    target_cv_name: str = ""
 
     application = Application(
         email_address=email_address,
