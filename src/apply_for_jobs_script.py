@@ -2,17 +2,14 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
 
+from utils import Application
+
 import time
-
 import logging
-LOGGING_FORMAT = "%(asctime)s, %(levelname)s, %(funcName)s, %(message)s"
-logging.basicConfig(filename='../logs/app.log', level=logging.INFO, format=LOGGING_FORMAT)
-logging.getLogger().addHandler(logging.StreamHandler())
 
-
-class GetJob:
-    def __init__(self, application: "Application"):
-        self.application: "Application" = application
+class Jobs:
+    def __init__(self, application: Application):
+        self.application: Application = application
 
         # Results
         self.number_of_search_results_page: int = 1
@@ -199,8 +196,16 @@ class GetJob:
         print("Number of found applications: %i" % len(self.all_job_applications_urls))
 
 
+def setup_logger(): 
+    LOGGING_FORMAT = "%(asctime)s, %(levelname)s, %(funcName)s, %(message)s"
+    # logging_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "logs"))
+
+    # logging.basicConfig(filename=logging_path, level=logging.INFO, format=LOGGING_FORMAT)
+    # logging.getLogger().addHandler(logging.StreamHandler())
+
 def find_and_apply_for_jobs(application: "Application") -> None:
     """Creates a GetJob obj using an Application obj then begins finding and applying for jobs."""
+    setup_logger()
     job_application: GetJob = GetJob(application)
     job_application.find_and_apply_for_jobs()
 
