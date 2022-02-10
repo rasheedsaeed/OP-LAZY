@@ -2,14 +2,16 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
 
-from utils import Application
-
 import time
 import logging
 
-class Jobs:
-    def __init__(self, application: Application):
+from application import JobApplication
+
+class Application:
+    def __init__(self, application: JobApplication):
         self.application: Application = application
+
+        self.is_logged_in = False
 
         # Results
         self.number_of_search_results_page: int = 1
@@ -115,6 +117,8 @@ class Jobs:
 
     def login(self):
         """Login to the https://findajob.dwp.gov.uk/ using the Application's credentials"""
+        if self.is_logged_in is True:
+            return 
         logging.info(f"Logging in with {self.application}")
 
         try:
@@ -151,12 +155,13 @@ class Jobs:
             logging.error(f"Couldn't submit login form. Exception: {e}")
             exit()
 
-        time.sleep(3) # This is indeed required!
+        time.sleep(3) # I don't know exactly why, bu this is required
         if self.driver.title == "Sign in":
             logging.error("Invalid credentials!")
             exit()
         else:
             logging.info("Sucessfully logged in!")
+            self.is_logged_in = True
 
     def setup_driver(self) -> webdriver:
         """Creates a driver with detatch mode; this helps us see if the script is working well whilst developing."""
