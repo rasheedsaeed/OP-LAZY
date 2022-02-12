@@ -9,3 +9,29 @@ DevTools listening on ws://localhost:53096/devtools/browser/16ec486d-3bb8-4838-a
 TimedPromise/<@chrome://remote/content/marionette/sync.js:235:19
 TimedPromise@chrome://remote/content/marionette/sync.js:220:10
 GeckoDriver.prototype.minimizeWindow@chrome://remote/content/marionette/driver.js:2303:11
+1644532739929	Marionette	INFO	Stopped listening on port 53102
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+
+###!!! [Child][PContentChild] Error: RunMessage(msgname=PContent::Msg_DestroyBrowsingContextGroup) Channel closing: too late to send/recv, messages will be lost
+
+
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\remf\\AppData\\Local\\Temp\\rust_mozprofileHkkN0w\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:53345/devtools/browser/97bd3da3-3f8d-40b6-be6e-190f64dc36d6
+1644532735810	Marionette	INFO	Listening on port 53351
+1644532736285	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+1644532739926	Marionette	INFO	Stopped listening on port 53351
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+JavaScript error: chrome://remote/content/marionette/cert.js, line 55: NS_ERROR_NOT_AVAILABLE: Component returned failure code: 0x80040111 (NS_ERROR_NOT_AVAILABLE) [nsICertOverrideService.setDisableAllSecurityChecksAndLetAttackersInterceptMyData]
+1644532752967	geckodriver	INFO	Listening on 127.0.0.1:53405
+1644532756034	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "53406" "-no-remote" "-profile" "C:\\Users\\remf\\AppData\\Local\\Temp\\rust_mozprofilejuEYwR"
+1644532756278	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\remf\\AppData\\Local\\Temp\\rust_mozprofilejuEYwR\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:53406/devtools/browser/d52c6bb2-b384-43b8-b720-59f0776e26be
+1644532757780	Marionette	INFO	Listening on port 53413
+1644532758083	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+1644532763105	Marionette	WARN	TimedPromise timed out after 5000 ms: stacktrace:
+TimedPromise/<@chrome://remote/content/marionette/sync.js:235:19
+TimedPromise@chrome://remote/content/marionette/sync.js:220:10
+GeckoDriver.prototype.minimizeWindow@chrome://remote/content/marionette/driver.js:2303:11
+1644532768226	Marionette	INFO	Stopped listening on port 53413
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.

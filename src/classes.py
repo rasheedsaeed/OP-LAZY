@@ -1,11 +1,14 @@
 from __future__ import annotations
+from multiprocessing.sharedctypes import Value
+import re
 from typing import List, NoReturn
-
 
 from selenium import webdriver
 
+from src.typed_dicts import Credentials
+
 class JobApplication:
-    def __init__(self, job_title: str, job_location: str, full_name: str, target_cv_name: str, cover_letter: str = "") -> NoReturn:
+    def __init__(self, job_title: str, job_location: str, full_name: str, target_cv_name: str, cover_letter: str = "") -> None:
         # Job login
         self.job_title: str = job_title
         self.job_location: str = job_location
@@ -18,19 +21,20 @@ class JobApplication:
         # Applications we've applied for 
         self.sucessful_applications: List[str] = []
 
-    def job_applied_for(self, url: str) -> NoReturn:
+    def job_applied_for(self, url: str) -> None:
         self.sucessful_applications.append(url)
 
 
 class GovFindAJobSelenium:
-    def __init__(self, job_applications: List[JobApplication], login_credentials: LoginCredentials):
+    def __init__(self, job_applications: List[JobApplication], login_credentials: Credentials) -> None:
         self.application: List[JobApplication] = job_applications
+        self.logic_credentials: Credentials = login_credentials
 
         # Webdriver
         self.web_driver: webdriver = None
 
         # If we've logged into the account
-        self.is_logged_in = False
+        self.logged_in = False
 
         # Results
         self.number_of_search_results_page: int = 1
@@ -39,8 +43,10 @@ class GovFindAJobSelenium:
 
     def find_and_apply_for_jobs(self):
         """Our main function that executes our methods to apply for jobs"""
-        self.driver = self.setup_driver()
-        self.login()
+        self.driver = self.setup_web_driver
+
+        if not self.is_logged_in():
+            self.login() 
 
         self.search_for_jobs()
         self.number_of_search_results_page = (
@@ -134,17 +140,20 @@ class GovFindAJobSelenium:
         job_query_url = f"https://findajob.dwp.gov.uk/search?q={self.application.job_title}&w={self.application.job_location}&p={page_number}&pp=50"
         self.driver.get(job_query_url)
 
-    def login(self):
-        """Login to the https://findajob.dwp.gov.uk/ using the Application's credentials"""
-        if self.is_logged_in is True:
-            return 
-        logging.info(f"Logging in with {self.application}")
+    def is_logged_in(self) -> bool:
+        if self.logged_in:
+            return True
+        
+        return False
+
+    def login(self) -> None:
+        """Login to the https://findajob.dwp.gov.uk/ using passed crendetials"""
 
         try:
             self.driver.get("https://findajob.dwp.gov.uk/sign-in")
         except Exception as e:
             logging.error(f"Exception happened whilst try to load the login page! Exception: {e}")
-            exit()
+            
 
         # Enter credentials
         try:
@@ -197,6 +206,14 @@ class GovFindAJobSelenium:
             raise Exception(error)
 
         return driver
+
+    def destroy_web_driver(self) -> None:
+        if self.web_driver is None:
+            raise ValueError("Driver is already destroyed!")
+
+        self.web_driver.quit()
+        
+        
 
     def get_number_of_pages_from_search_for_jobs_results(self) -> int:
         """Grabs the last item from the pager-items to determine the number of pages"""

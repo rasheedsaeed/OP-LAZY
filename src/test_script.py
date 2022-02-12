@@ -27,4 +27,4 @@ if __name__ == "__main__":
         cover_letter
     )
     runner = GovFindAJobSelenium([application], login_details)
-    runner.setup_driver()
+    runner.setup_web_driver()
