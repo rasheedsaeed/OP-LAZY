@@ -1,9 +1,9 @@
 from __future__ import annotations
-from multiprocessing.sharedctypes import Value
-import re
-from typing import List, NoReturn
+from typing import List
+import time
 
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 
 from src.typed_dicts import Credentials
 
@@ -26,9 +26,19 @@ class JobApplication:
 
 
 class GovFindAJobSelenium:
+    URLS = {
+        "login": "https://findajob.dwp.gov.uk/sign-in"
+    }
+
+    PAGE_ELEMENTS_IDENTIFIERS = {
+        # Login
+        "login_email_id": "email",
+        "login_password_id": "password"
+
+    }
     def __init__(self, job_applications: List[JobApplication], login_credentials: Credentials) -> None:
         self.application: List[JobApplication] = job_applications
-        self.logic_credentials: Credentials = login_credentials
+        self.login_credentials: Credentials = login_credentials
 
         # Webdriver
         self.web_driver: webdriver = None
@@ -148,52 +158,47 @@ class GovFindAJobSelenium:
 
     def login(self) -> None:
         """Login to the https://findajob.dwp.gov.uk/ using passed crendetials"""
-
+        print("Logging in")
         try:
-            self.driver.get("https://findajob.dwp.gov.uk/sign-in")
+            self.driver.get(GovFindAJobSelenium.URLS["login"])
         except Exception as e:
-            logging.error(f"Exception happened whilst try to load the login page! Exception: {e}")
-            
+            raise Exception(f"Exception happened whilst try to load the login page! Exception: {e}")
 
         # Enter credentials
         try:
-            email_input_form_id = "email"
-            email_input_form_element = self.driver.find_element_by_id(email_input_form_id)
-            email_input_form_element.clear()
-            email_input_form_element.send_keys(self.application.email_address)
+            email_input_form_element = self.driver.find_element_by_id(GovFindAJobSelenium.PAGE_ELEMENTS_IDENTIFIERS["login_email_id"])
+            self.selenium_clear_element_and_send_keys(email_input_form_element, self.login_credentials.email)
         except Exception as e:
-            logging.error(f"Couldn't insert email address. Exception: {e}")
-            exit()
+            raise Exception(f"Couldn't log in using email! {e}")
 
         try:
-            password_input_form_id = "password"
             password_input_form_element = self.driver.find_element_by_id(
-                password_input_form_id
+                GovFindAJobSelenium.PAGE_ELEMENTS_IDENTIFIERS["login_password_id"]
             )
-            password_input_form_element.clear()
-            password_input_form_element.send_keys(self.application.password)
+            self.selenium_clear_element_and_send_keys(password_input_form_element, self.application.password)
         except Exception as e:
-            logging.error(f"Couldn't insert password. Exception: {e}")
-            exit()
+            raise Exception(f"Couldn't log in using password! {e}")
 
         # Once we've entered our password, we'll hit ENTER to login... this saves us finding and clicking the submit button
         try:
             password_input_form_element.send_keys(Keys.ENTER)
         except Exception as e:
-            logging.error(f"Couldn't submit login form. Exception: {e}")
-            exit()
+            raise Exception(f"Couldn't submit login form! {e}")
 
         time.sleep(3) # I don't know exactly why, bu this is required
         if self.driver.title == "Sign in":
-            logging.error("Invalid credentials!")
-            exit()
+            raise ValueError("Invalid login credentials!")
         else:
-            logging.info("Sucessfully logged in!")
+            print("Sucessfully logged in!")
             self.is_logged_in = True
+
+    def selenium_clear_element_and_send_keys(element, key) -> None:
+        element.clear()
+        element.send_keys(key)
 
     def setup_web_driver(self) -> webdriver:
         """Creates a selenium [Firefox] webdriver instances."""
-        if self.web_driver is not None:
+        if self.web_driver != None:
             print("Driver already setup!")
             return self.web_driver
 
@@ -212,7 +217,6 @@ class GovFindAJobSelenium:
             raise ValueError("Driver is already destroyed!")
 
         self.web_driver.quit()
-        
         
 
     def get_number_of_pages_from_search_for_jobs_results(self) -> int:
