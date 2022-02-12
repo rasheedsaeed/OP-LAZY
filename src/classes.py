@@ -34,8 +34,12 @@ class GovFindAJobSelenium:
         # Login
         "login_email_id": "email",
         "login_password_id": "password"
-
     }
+
+    XPATH = {
+        "last_page_number_from_job_search_result": "//ul[@class='pager-items']/li[last()]"
+    }
+
     def __init__(self, job_applications: List[JobApplication], login_credentials: Credentials) -> None:
         self.application: List[JobApplication] = job_applications
         self.login_credentials: Credentials = login_credentials
@@ -59,17 +63,16 @@ class GovFindAJobSelenium:
             self.login() 
 
         self.search_for_jobs()
-        self.number_of_search_results_page = (
-            self.get_number_of_pages_from_search_for_jobs_results()
-        )
+        number_of_search_results_page: int = self.get_number_of_pages_from_search_for_jobs_results()
+        
 
         # Now we have the number of pages, we can go through each page and extract each job application url
-        self.get_all_jobs_urls()
+        self.get_all_jobs_urls(number_of_search_results_page)
         self.apply_to_all_jobs()
 
         print(f"Total number of jobs applied for: {self.total_number_of_jobs_applied}")
 
-    def apply_to_all_jobs(self):
+    def apply_to_all_jobs():
         number_of_job_applications_urls = len(self.all_job_applications_urls)
         for job_counter, job_application_url in enumerate(
             self.all_job_applications_urls
@@ -222,30 +225,32 @@ class GovFindAJobSelenium:
 
         self.web_driver.quit()
         
-
     def get_number_of_pages_from_search_for_jobs_results(self) -> int:
         """Grabs the last item from the pager-items to determine the number of pages"""
-        xpath_str: str = "//ul[@class='pager-items']/li[last()]"
-        element: "WebElement" = self.driver.find_element_by_xpath(xpath_str)
+        print("Grabbing number of pages from search result")
+        try:
+            selenium_element: str = self.driver.find_element_by_xpath(GovFindAJobSelenium.XPATH["last_page_number_from_job_search_result"])
+        except Exception: 
+            raise Exception(f"Coulnd't grab last page number from search result! {e}")
         
-        element_value: str = element.text
+        element_value: str = selenium_element.text
         number_of_pages: int = int(element_value)
 
-        logging.info(f"Grabbing number of pages from a search result. {number_of_pages} found!")
+        print(f"Number of pages found: {number_of_pages} ")
         return number_of_pages
 
-    def get_all_jobs_urls(self):
-        xpath_str = "//div[@class='search-result']/h3[last()]/a[last()]"
+    def get_all_jobs_urls(self, number_of_search_results_page):
         print("Finding jobs listings...")
+        xpath_str = "//div[@class='search-result']/h3[last()]/a[last()]"
 
-        for page_number in range(1, self.number_of_search_results_page + 1):
+        for page_number in range(1, number_of_search_results_page + 1):
             self.search_for_jobs(page_number)
             elements = self.driver.find_elements_by_xpath(xpath_str)
 
             for element in elements:
                 url = element.get_attribute("href")
 
-                # The urls we get is like: https://findajob.dwp.gov.uk/details/7784066; it doesn't actually direct to the form, just details
+                # The urls we get is like: https://findajob.dwp.gov.uk/details/7784066; it doesn't direct to the form but to the job details
                 # But if we change the "details" to "apply" then it takes us to the application... so change this
                 url = url.replace("details", "apply")
                 self.all_job_applications_urls.append(url)
