@@ -148,7 +148,11 @@ class GovFindAJobSelenium:
     def search_for_jobs(self, page_number=1):
         """Loads a job title and location results with a page number (default 1)"""
         job_query_url = f"https://findajob.dwp.gov.uk/search?q={self.application.job_title}&w={self.application.job_location}&p={page_number}&pp=50"
-        self.driver.get(job_query_url)
+
+        try:
+            self.driver.get(job_query_url)
+        except Exception as e:
+            raise Exception(f"Coulnd't search for job! {e}")
 
     def is_logged_in(self) -> bool:
         if self.logged_in:
