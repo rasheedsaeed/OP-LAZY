@@ -1,12 +1,14 @@
 # OP LAZY
-LAZY is a Selenium-script that will apply to jobs via https://findajob.dwp.gov.uk/. 
+OP LAZY is a Selenium-script that will apply to jobs via https://findajob.dwp.gov.uk/. 
 
 ## Prerequisites
 1. Have a account on https://findajob.dwp.gov.uk/.
 2. Have a CV uploaded to the account.
+3. Have Firefox installed (or you can change the driver)
 
 ## Use guide
-Enter your credentials, full name, job title and location, cover letter, and targeted CV in the *main.py* file. You can then call *main.py* to begin the script.
+Edit the src/script.py file with your credentials, full name, job title and location, cover letter, and targeted CV.
 
+Watch the CLI for updates.
 
 
