@@ -16,7 +16,7 @@ class JobApplication:
         job_location: str,
         full_name: str,
         message: str,
-        cover_letter: str = "",
+        cv: str = "",
     ) -> None:
         # Job login
         self.job_title: str = job_title
@@ -25,7 +25,7 @@ class JobApplication:
         # Cover letter
         self.full_name: str = full_name
         self.message: str = message
-        self.cover_letter: str = cover_letter
+        self.cv: str = cv
 
         # Applications we've applied for
         self.sucessful_applications: List[str] = []
@@ -33,14 +33,22 @@ class JobApplication:
     def job_applied_for(self, url: str) -> None:
         self.sucessful_applications.append(url)
 
+    def number_of_successful_application(self) -> int:
+        return len(self.sucessful_applications)
+
 
 class GovFindAJobSelenium:
     URLS = {"login": "https://findajob.dwp.gov.uk/sign-in"}
 
     PAGE_ELEMENTS_IDENTIFIERS = {
-        # Login
+        # Login form
         "login_email_id": "email",
         "login_password_id": "password",
+        # Job application form
+        "job_application_full_name_id": "full_name",
+        "job_application_message_id": "message",
+        "job_application_cv_id": "cv_id",
+        "job_application_submit_button": "govuk-button"
     }
 
     XPATH = {
@@ -51,9 +59,9 @@ class GovFindAJobSelenium:
     # Typed
 
     def __init__(
-        self, job_applications: JobApplication, login_credentials: LoginCredentials
+        self, job_application: JobApplication, login_credentials: LoginCredentials
     ) -> None:
-        self.application: JobApplication = job_applications
+        self.application: JobApplication = job_application
         self.login_credentials: LoginCredentials = login_credentials
 
         # Webdriver
@@ -70,93 +78,89 @@ class GovFindAJobSelenium:
         if not self.is_logged_in():
             self.login()
 
-        self.search_for_jobs()
         number_of_search_results_page: int = (
             self.get_number_of_pages_from_search_for_jobs_results()
         )
 
         # Now we have the number of pages, we can go through each page and extract each job application url
         job_urls: List[str] = self.get_job_urls_from_page_listing(number_of_search_results_page)
-        self.apply_to_all_jobs(job_urls)
 
-        print(f"Total number of jobs applied for: {self.total_number_of_jobs_applied}")
+        number_of_jobs_applied_for = 0
+        for job_url in job_urls:
+            application_successful = self.apply_for_job(job_url)    
+            if application_successful:
+                number_of_jobs_applied_for += 1
+                print(number_of_jobs_applied_for)
 
-    def apply_to_all_jobs(self, job_urls: List[str]) -> None:
-        no_of_job_urls = len(job_urls)
-        no_of_jobs_applied_for = 0
-        for job_counter, job_application_url in enumerate(job_urls):
-            print(f"Job number {job_counter} out of {no_of_job_urls}")
 
-            if self.job_application_is_on_findajob_website(job_application_url):
-                self.fill_out_findajob_form()
-                no_of_jobs_applied_for += 1
+        print(f"Total number of jobs applied for: {self.application.number_of_successful_application()}")
 
-        print(f"Number of jobs applied for: {no_of_jobs_applied_for}")
+    def apply_for_job(self, job_url: str) -> None:
+        if self.job_application_is_on_findajob_website(job_url):
+            self.fill_out_findajob_form()
+            return True
 
-    def fill_out_findajob_form(self):
+        return False
+
+    def fill_out_findajob_form(self) -> None:
         print(f"Applying for job: {self.web_driver.current_url}")
+
         if "findajob.dwp.gov.uk/apply" not in self.web_driver.current_url:
-            print("Invalid url: %s" % self.web_driver.current_url)
+            print(f"Invalid url: {self.web_driver.current_url}")
             return
 
         try:
             # Full name
             try:
-                full_name_form_id = "full_name"
                 full_name_form_element = self.web_driver.find_element_by_id(
-                    full_name_form_id
+                    GovFindAJobSelenium.PAGE_ELEMENTS_IDENTIFIERS["job_application_full_name_id"]
                 )
-                full_name_form_element.clear()
-                full_name_form_element.send_keys(self.application.full_name)
-                time.sleep(4)
+                self.selenium_clear_element_and_send_keys(full_name_form_element, self.application.full_name)
             except Exception as e:
                 raise Exception(f"Unable to send full name! {e}")
 
-            # cover_letter
+            # Message
             try:
-                cover_letter_form_id = "message"
-                cover_letter_form_element = self.web_driver.find_element_by_id(
-                    cover_letter_form_id
+                message_form_element = self.web_driver.find_element_by_id(
+                    GovFindAJobSelenium.PAGE_ELEMENTS_IDENTIFIERS["job_application_message_id"]
                 )
-                cover_letter_form_element.clear()
-                cover_letter_form_element.send_keys(self.application.cover_letter)
-                time.sleep(4)
+                self.selenium_clear_element_and_send_keys(message_form_element, self.application.message)
             except Exception as e:
                 raise Exception(f"Unable to send cover letter! {e}")
 
-            # CV
+             # CV
             try:
-                cv_dropdown_id = "cv_id"
-                cv_dropdown_select_element = Select(
-                    self.web_driver.find_element_by_id(cv_dropdown_id)
+                cv_dropdown_form_element = self.web_driver.find_element_by_id(GovFindAJobSelenium.PAGE_ELEMENTS_IDENTIFIERS["job_application_cv_id"])
+                cv_dropdown_form_element_Select = Select(cv_dropdown_form_element)
+
+                time.sleep(2) # If we don't do this then it breaks... brilliant!
+                cv_dropdown_form_element_Select.select_by_visible_text(
+                    self.application.cv
                 )
-                cv_dropdown_select_element.select_by_visible_text(
-                    self.application.message
-                )
-                time.sleep(4)
             except Exception as e:
                 raise Exception(f"Unable to select cv! {e}")
-            # cv_dropdown_select_element.send_keys(Keys.ENTER)
+
 
             # Submit the application
-            time.sleep(4)
-            submit_button = runner.web_driver.find_elements_by_class_name(
-                "govuk-button"
-            )[-1]
-            submit_button.click()
+            try:
+                submit_button = self.web_driver.find_elements_by_class_name(
+                    GovFindAJobSelenium.PAGE_ELEMENTS_IDENTIFIERS["job_application_submit_button"]
+                )[-1]
+                submit_button.click()
+            except Exception as e:
+                raise Exception(f"Couldn't click submit button! {e}")
 
-            time.sleep(4)
             # If I don't put a sleep here the application doesn't go through? Not a fuck what's happening
-            self.total_number_of_jobs_applied += 1
+            time.sleep(4)
+            self.application.sucessful_applications.append(self.web_driver.current_url)
             print(f"Sucessfully applied for for job: {self.web_driver.current_url}")
 
         except Exception as e:
             print(
-                "Unknown exception happened when applying for {self.web_driver.current_url}. Error: {e}"
+                f"Unknown exception happened when applying for {self.web_driver.current_url}. {e}"
             )
 
     def job_application_is_on_findajob_website(self, job_application_url: str) -> bool:
-
         try:
             print(f"Determining if {job_application_url} is on findajob... loading")
             self.web_driver.get(job_application_url)
@@ -262,6 +266,9 @@ class GovFindAJobSelenium:
     def get_number_of_pages_from_search_for_jobs_results(self) -> int:
         """Grabs the last item from the pager-items to determine the number of pages"""
         print("Grabbing number of pages from search result")
+
+        self.search_for_jobs()
+
         try:
             selenium_element: str = self.web_driver.find_element_by_xpath(
                 GovFindAJobSelenium.XPATH["number_of_pages_from_search_result"]

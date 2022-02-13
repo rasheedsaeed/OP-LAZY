@@ -1,10 +1,10 @@
 
-from typed_dicts import Credentials
+from typed_dicts import LoginCredentials
 from classes import JobApplication, GovFindAJobSelenium
 
 if __name__ == "__main__":
     # Credentials
-    login_details: Credentials = {
+    login_details: LoginCredentials = {
         "email": "hfzcvdfhzmfbqjaiap@kvhrr.com", 
         "password": "nevergonnagiveyouup1"
     }
@@ -15,15 +15,18 @@ if __name__ == "__main__":
 
     # Details to fill out form
     full_name: str = "TONDO EIGHTEEN"
-    cover_letter: str = "Hello daddy!"
+    message: str = "Hello daddy!"
     target_cv_name: str = "TONDO_CV.pdf"
 
     application = JobApplication(
-        job_title,
-        job_location,
-        full_name,
-        target_cv_name,
-        cover_letter
+        job_title=job_title,
+        job_location=job_location,
+        full_name=full_name,
+        cv=target_cv_name,
+        message=message
     )
+    
     runner = GovFindAJobSelenium(application, login_details)
     runner.find_and_apply_for_jobs()
+
+    
