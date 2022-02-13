@@ -1,5 +1,4 @@
 from __future__ import annotations
-from email.mime import application
 from typing import List
 import time
 
@@ -7,20 +6,28 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
 
-from typed_dicts import Credentials
+from typed_dicts import LoginCredentials
+
 
 class JobApplication:
-    def __init__(self, job_title: str, job_location: str, full_name: str, target_cv_name: str, cover_letter: str = "") -> None:
+    def __init__(
+        self,
+        job_title: str,
+        job_location: str,
+        full_name: str,
+        message: str,
+        cover_letter: str = "",
+    ) -> None:
         # Job login
         self.job_title: str = job_title
         self.job_location: str = job_location
 
         # Cover letter
         self.full_name: str = full_name
-        self.target_cv_name: str = target_cv_name
+        self.message: str = message
         self.cover_letter: str = cover_letter
 
-        # Applications we've applied for 
+        # Applications we've applied for
         self.sucessful_applications: List[str] = []
 
     def job_applied_for(self, url: str) -> None:
@@ -28,27 +35,26 @@ class JobApplication:
 
 
 class GovFindAJobSelenium:
-    URLS = {
-        "login": "https://findajob.dwp.gov.uk/sign-in"
-    }
+    URLS = {"login": "https://findajob.dwp.gov.uk/sign-in"}
 
     PAGE_ELEMENTS_IDENTIFIERS = {
         # Login
         "login_email_id": "email",
-        "login_password_id": "password"
+        "login_password_id": "password",
     }
 
     XPATH = {
-        "last_page_number_from_job_search_result": "//ul[@class='pager-items']/li[last()]",
-        "get_job_url_from_job_listing": "//div[@class='search-result']/h3[last()]/a[last()]"
+        "number_of_pages_from_search_result": "//ul[@class='pager-items']/li[last()]",
+        "get_job_url_from_job_listing": "//div[@class='search-result']/h3[last()]/a[last()]",
     }
 
-# Typed
+    # Typed
 
-
-    def __init__(self, job_applications: JobApplication, login_credentials: Credentials) -> None:
+    def __init__(
+        self, job_applications: JobApplication, login_credentials: LoginCredentials
+    ) -> None:
         self.application: JobApplication = job_applications
-        self.login_credentials: Credentials = login_credentials
+        self.login_credentials: LoginCredentials = login_credentials
 
         # Webdriver
         self.web_driver: webdriver = None
@@ -56,23 +62,21 @@ class GovFindAJobSelenium:
         # If we've logged into the account
         self.logged_in = False
 
-        # Results
-        self.number_of_search_results_page: int = 1
-        self.all_job_applications_urls: list = []
-        self.total_number_of_jobs_applied: int = 0
-
     def find_and_apply_for_jobs(self):
-        """Our main function that executes our methods to apply for jobs"""
-        self.setup_web_driver()
+        """Our runner function that handles the whole process for us"""
+        if not self.web_driver:
+            self.setup_web_driver()
 
         if not self.is_logged_in():
-            self.login() 
+            self.login()
 
         self.search_for_jobs()
-        number_of_search_results_page: int = self.get_number_of_pages_from_search_for_jobs_results()
-        
+        number_of_search_results_page: int = (
+            self.get_number_of_pages_from_search_for_jobs_results()
+        )
+
         # Now we have the number of pages, we can go through each page and extract each job application url
-        job_urls: List[str] = self.get_all_jobs_urls(number_of_search_results_page)
+        job_urls: List[str] = self.get_job_urls_from_page_listing(number_of_search_results_page)
         self.apply_to_all_jobs(job_urls)
 
         print(f"Total number of jobs applied for: {self.total_number_of_jobs_applied}")
@@ -99,7 +103,9 @@ class GovFindAJobSelenium:
             # Full name
             try:
                 full_name_form_id = "full_name"
-                full_name_form_element = self.web_driver.find_element_by_id(full_name_form_id)
+                full_name_form_element = self.web_driver.find_element_by_id(
+                    full_name_form_id
+                )
                 full_name_form_element.clear()
                 full_name_form_element.send_keys(self.application.full_name)
                 time.sleep(4)
@@ -125,29 +131,29 @@ class GovFindAJobSelenium:
                     self.web_driver.find_element_by_id(cv_dropdown_id)
                 )
                 cv_dropdown_select_element.select_by_visible_text(
-                    self.application.target_cv_name
+                    self.application.message
                 )
                 time.sleep(4)
             except Exception as e:
                 raise Exception(f"Unable to select cv! {e}")
-            #cv_dropdown_select_element.send_keys(Keys.ENTER)
+            # cv_dropdown_select_element.send_keys(Keys.ENTER)
 
-            
             # Submit the application
             time.sleep(4)
-            submit_button = runner.web_driver.find_elements_by_class_name("govuk-button")[-1]
+            submit_button = runner.web_driver.find_elements_by_class_name(
+                "govuk-button"
+            )[-1]
             submit_button.click()
 
             time.sleep(4)
             # If I don't put a sleep here the application doesn't go through? Not a fuck what's happening
             self.total_number_of_jobs_applied += 1
             print(f"Sucessfully applied for for job: {self.web_driver.current_url}")
-            
+
         except Exception as e:
             print(
                 "Unknown exception happened when applying for {self.web_driver.current_url}. Error: {e}"
             )
-        
 
     def job_application_is_on_findajob_website(self, job_application_url: str) -> bool:
 
@@ -170,33 +176,39 @@ class GovFindAJobSelenium:
 
         return False
 
-    def search_for_jobs(self, page_number=1):
+    def search_for_jobs(self, page_number=1) -> None:
         """Loads a job title and location results with a page number (default 1)"""
-        job_query_url = f"https://findajob.dwp.gov.uk/search?q={self.application.job_title}&w={self.application.job_location}&p={page_number}&pp=50"
+        job_search_url = f"https://findajob.dwp.gov.uk/search?q={self.application.job_title}&w={self.application.job_location}&p={page_number}&pp=50"
 
         try:
-            self.web_driver.get(job_query_url)
+            self.web_driver.get(job_search_url)
         except Exception as e:
-            raise Exception(f"Coulnd't search for job! {e}")
+            raise Exception(f"Coulnd't search for jobs! {e}")
 
     def is_logged_in(self) -> bool:
         if self.logged_in:
             return True
-        
+
         return False
 
     def login(self) -> None:
         """Login to the https://findajob.dwp.gov.uk/ using passed crendetials"""
-        print("Logging in")
+        print("Logging in...")
         try:
             self.web_driver.get(GovFindAJobSelenium.URLS["login"])
         except Exception as e:
-            raise Exception(f"Exception happened whilst try to load the login page! Exception: {e}")
+            raise Exception(
+                f"Exception happened whilst try to load the login page! Exception: {e}"
+            )
 
         # Enter credentials
         try:
-            email_input_form_element = self.web_driver.find_element_by_id(GovFindAJobSelenium.PAGE_ELEMENTS_IDENTIFIERS["login_email_id"])
-            self.selenium_clear_element_and_send_keys(email_input_form_element, self.login_credentials["email"])
+            email_input_form_element = self.web_driver.find_element_by_id(
+                GovFindAJobSelenium.PAGE_ELEMENTS_IDENTIFIERS["login_email_id"]
+            )
+            self.selenium_clear_element_and_send_keys(
+                email_input_form_element, self.login_credentials["email"]
+            )
         except Exception as e:
             raise Exception(f"Couldn't log in using email! {e}")
 
@@ -204,7 +216,9 @@ class GovFindAJobSelenium:
             password_input_form_element = self.web_driver.find_element_by_id(
                 GovFindAJobSelenium.PAGE_ELEMENTS_IDENTIFIERS["login_password_id"]
             )
-            self.selenium_clear_element_and_send_keys(password_input_form_element, self.login_credentials["password"])
+            self.selenium_clear_element_and_send_keys(
+                password_input_form_element, self.login_credentials["password"]
+            )
         except Exception as e:
             raise Exception(f"Couldn't log in using password! {e}")
 
@@ -214,16 +228,16 @@ class GovFindAJobSelenium:
         except Exception as e:
             raise Exception(f"Couldn't submit login form! {e}")
 
-        time.sleep(3) # I don't know exactly why, bu this is required
+        time.sleep(3)  # If we don't have this, despite actually logging in, the title doesn't load and it executes as False... so keep this.
         if self.web_driver.title == "Sign in":
             raise ValueError("Invalid login credentials!")
         else:
             print("Sucessfully logged in!")
             self.is_logged_in = True
 
-    def selenium_clear_element_and_send_keys(self, element, key) -> None:
+    def selenium_clear_element_and_send_keys(self, element, keys) -> None:
         element.clear()
-        element.send_keys(key)
+        element.send_keys(keys)
 
     def setup_web_driver(self) -> None:
         """Creates a selenium [Firefox] webdriver instances."""
@@ -242,43 +256,45 @@ class GovFindAJobSelenium:
 
     def destroy_web_driver(self) -> None:
         if self.web_driver is None:
-            raise ValueError("Driver is already destroyed!")
+            raise ValueError("Web driver is already destroyed!")
 
         self.web_driver.quit()
-        
+
     def get_number_of_pages_from_search_for_jobs_results(self) -> int:
         """Grabs the last item from the pager-items to determine the number of pages"""
         print("Grabbing number of pages from search result")
         try:
-            selenium_element: str = self.web_driver.find_element_by_xpath(GovFindAJobSelenium.XPATH["last_page_number_from_job_search_result"])
+            selenium_element: str = self.web_driver.find_element_by_xpath(
+                GovFindAJobSelenium.XPATH["number_of_pages_from_search_result"]
+            )
         except Exception as e:
             raise Exception(f"Coulnd't grab last page number from search result! {e}")
-        
-        element_value: str = selenium_element.text
-        number_of_pages: int = int(element_value)
 
+        number_of_pages_str: str = selenium_element.text
+        number_of_pages: int = int(number_of_pages_str)
 
         print(f"Number of pages found: {number_of_pages} ")
         return number_of_pages
 
-    def get_all_jobs_urls(self, number_of_search_results_page) -> List[str]:
+    def get_job_urls_from_page_listing(self, number_of_search_results_page: int) -> List[str]:
         print("Finding jobs listings...")
 
         job_application_urls: list = []
         for page_number in range(1, number_of_search_results_page + 1):
             self.search_for_jobs(page_number)
-            selenium_elements = self.web_driver.find_elements_by_xpath(GovFindAJobSelenium.XPATH["get_job_url_from_job_listing"])
+
+            selenium_elements = self.web_driver.find_elements_by_xpath(
+                GovFindAJobSelenium.XPATH["get_job_url_from_job_listing"]
+            )
 
             print(f"Number of urls: {len(selenium_elements)}")
             for selenium_element in selenium_elements:
                 url: str = selenium_element.get_attribute("href")
 
-                # The urls we get is like: https://findajob.dwp.gov.uk/details/7784066; it doesn't direct to the form but to the job details
+                # The url we find is like: https://findajob.dwp.gov.uk/details/7784066; this url doesn't direct to the form but to the job details
                 # But if we change the "details" to "apply" then it takes us to the application... so change this
                 url = url.replace("details", "apply")
-                print(url)
                 job_application_urls.append(url)
 
-        print("Number of found applications: %i" % len(job_application_urls))
+        print(f"Number of found applications: {len(job_application_urls)}")
         return job_application_urls
-

@@ -1,5 +1,5 @@
 from typing import TypedDict
 
-class Credentials(TypedDict):
+class LoginCredentials(TypedDict):
     email: str
     password: str
