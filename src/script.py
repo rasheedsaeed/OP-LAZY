@@ -16,13 +16,13 @@ if __name__ == "__main__":
     # Details to fill out form
     full_name: str = "TONDO EIGHTEEN"
     message: str = "Hello daddy!"
-    target_cv_name: str = "TONDO_CV.pdf"
+    cv: str = "TONDO_CV.pdf"
 
     application = JobApplication(
         job_title=job_title,
         job_location=job_location,
         full_name=full_name,
-        cv=target_cv_name,
+        cv=cv,
         message=message
     )
     

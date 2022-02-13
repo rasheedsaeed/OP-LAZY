@@ -856,3 +856,26 @@ JavaScript error: resource://gre/modules/LoginManagerParent.jsm, line 136: TypeE
 JavaScript error: resource://devtools/client/jsonview/Sniffer.jsm, line 53: NS_ERROR_NOT_AVAILABLE: Component returned failure code: 0x80040111 (NS_ERROR_NOT_AVAILABLE) [nsIChannel.contentType]
 1644790975678	Marionette	INFO	Stopped listening on port 65244
 console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+1644791832805	geckodriver	INFO	Listening on 127.0.0.1:49689
+1644791835863	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "49690" "-no-remote" "-profile" "C:\\Users\\remf\\AppData\\Local\\Temp\\rust_mozprofileTjdt3y"
+1644791836107	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\remf\\AppData\\Local\\Temp\\rust_mozprofileTjdt3y\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:49690/devtools/browser/d128dfc6-0392-4ba1-bb96-11c9252223ee
+1644791837784	Marionette	INFO	Listening on port 49698
+1644791837920	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+1644791842950	Marionette	WARN	TimedPromise timed out after 5000 ms: stacktrace:
+TimedPromise/<@chrome://remote/content/marionette/sync.js:235:19
+TimedPromise@chrome://remote/content/marionette/sync.js:220:10
+GeckoDriver.prototype.minimizeWindow@chrome://remote/content/marionette/driver.js:2303:11
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://findajob.dwp.gov.uk"
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://findajob.dwp.gov.uk"
+JavaScript error: resource://gre/modules/LoginManagerParent.jsm, line 136: TypeError: gRecipeManager is null
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://findajob.dwp.gov.uk"
+JavaScript error: resource://gre/modules/LoginManagerParent.jsm, line 136: TypeError: gRecipeManager is null
+JavaScript error: https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js, line 3: TypeError: a is undefined
+1644791859282	Marionette	INFO	Stopped listening on port 49698
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+JavaScript error: chrome://remote/content/marionette/cert.js, line 55: NS_ERROR_NOT_AVAILABLE: Component returned failure code: 0x80040111 (NS_ERROR_NOT_AVAILABLE) [nsICertOverrideService.setDisableAllSecurityChecksAndLetAttackersInterceptMyData]
+
+###!!! [Parent][PGPUParent] Error: RunMessage(msgname=PGPU::Msg_ShutdownVR) Channel closing: too late to send/recv, messages will be lost
+
