@@ -1,5 +1,5 @@
 # OP LAZY
-OP LAZY is a Selenium-script that will apply to jobs via https://findajob.dwp.gov.uk/. 
+OP LAZY is a Selenium-script that will automatically apply to jobs using the https://findajob.dwp.gov.uk/ website. 
 
 ## Prerequisites
 1. Have a account on https://findajob.dwp.gov.uk/.
