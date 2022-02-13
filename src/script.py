@@ -5,18 +5,18 @@ from classes import JobApplication, GovFindAJobSelenium
 if __name__ == "__main__":
     # Credentials
     login_details: LoginCredentials = {
-        "email": "hfzcvdfhzmfbqjaiap@kvhrr.com", 
-        "password": "nevergonnagiveyouup1"
+        "email": "", 
+        "password": ""
     }
 
     # Job specific
-    job_title: str = "Cleaner"
-    job_location: str = "Wirral"
+    job_title: str = ""
+    job_location: str = ""
 
     # Details to fill out form
-    full_name: str = "TONDO EIGHTEEN"
-    message: str = "Hello daddy!"
-    cv: str = "TONDO_CV.pdf"
+    full_name: str = ""
+    message: str = ""
+    cv: str = ""
 
     application = JobApplication(
         job_title=job_title,
