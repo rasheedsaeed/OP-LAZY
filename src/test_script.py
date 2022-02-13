@@ -15,8 +15,7 @@ if __name__ == "__main__":
 
     # Details to fill out form
     full_name: str = "TONDO EIGHTEEN"
-    cover_letter: str = """
-    """
+    cover_letter: str = "Hello daddy!"
     target_cv_name: str = "TONDO_CV.pdf"
 
     application = JobApplication(
@@ -26,5 +25,5 @@ if __name__ == "__main__":
         target_cv_name,
         cover_letter
     )
-    runner = GovFindAJobSelenium([application], login_details)
-    runner.setup_web_driver()
+    runner = GovFindAJobSelenium(application, login_details)
+    runner.find_and_apply_for_jobs()
