@@ -574,3 +574,14 @@ console.warn: SearchSettings: "get: No settings file exists, new profile?" (new 
 DevTools listening on ws://localhost:54325/devtools/browser/5f11497f-8abf-47ff-a9c2-0daf68d11d8f
 1644785017583	Marionette	INFO	Listening on port 54332
 1644785017869	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+1644785022899	Marionette	WARN	TimedPromise timed out after 5000 ms: stacktrace:
+TimedPromise/<@chrome://remote/content/marionette/sync.js:235:19
+TimedPromise@chrome://remote/content/marionette/sync.js:220:10
+GeckoDriver.prototype.minimizeWindow@chrome://remote/content/marionette/driver.js:2303:11
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://findajob.dwp.gov.uk"
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://findajob.dwp.gov.uk"
+JavaScript error: resource://gre/modules/LoginManagerParent.jsm, line 136: TypeError: gRecipeManager is null
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://findajob.dwp.gov.uk"
+JavaScript error: resource://gre/modules/LoginManagerParent.jsm, line 136: TypeError: gRecipeManager is null
+1644785057495	Marionette	INFO	Stopped listening on port 54332
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
