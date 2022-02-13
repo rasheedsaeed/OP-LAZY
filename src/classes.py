@@ -160,10 +160,9 @@ class GovFindAJobSelenium:
         try:
             print(f"Determining if {job_application_url} is on findajob... loading")
             self.web_driver.get(job_application_url)
-            print("Loaded!")
 
             # Sometimes the application is gone but the page still exists!
-            # This causes freezes for some reason...
+            # This causes the browser to freeze for some reason... handle this
             if self.web_driver.current_url == "https://findajob.dwp.gov.uk/error.html":
                 print("This is an error page! The job no longer exists")
                 return False
