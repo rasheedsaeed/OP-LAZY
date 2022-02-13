@@ -40,7 +40,6 @@ class GovFindAJobSelenium:
 
     XPATH = {
         "last_page_number_from_job_search_result": "//ul[@class='pager-items']/li[last()]",
-        # get_all_jobs_urls()
         "get_job_url_from_job_listing": "//div[@class='search-result']/h3[last()]/a[last()]"
     }
 
