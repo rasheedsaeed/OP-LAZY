@@ -87,6 +87,7 @@ class GovFindAJobSelenium:
 
         for job_url in job_urls:
             self.apply_for_job(job_url)
+            print(f"Number of successful applications: {self.application.number_of_successful_application()}")
 
         print(
             f"Total number of jobs applied for: {self.application.number_of_successful_application()}"
