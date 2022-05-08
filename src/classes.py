@@ -77,7 +77,7 @@ class GovFindAJobSelenium:
             self.login()
 
         number_of_search_results_page: int = (
-            self.get_number_of_pages_from_search_for_jobs_results()
+            self.number_of_listing_pages_from_search_results()
         )
 
         # Now we have the number of pages, we can go through each page and extract each job application url
@@ -89,7 +89,6 @@ class GovFindAJobSelenium:
             self.apply_for_job(job_url)
             print(f"Number of successful applications: {self.application.number_of_successful_application()}")
             
-
         print(
             f"Total number of jobs applied for: {self.application.number_of_successful_application()}"
         )
@@ -281,7 +280,7 @@ class GovFindAJobSelenium:
 
         self.web_driver.quit()
 
-    def get_number_of_pages_from_search_for_jobs_results(self) -> int:
+    def number_of_listing_pages_from_search_results(self) -> int:
         """Grabs the last item from the pager-items to determine the number of pages"""
         print("Grabbing number of pages from search result")
 
