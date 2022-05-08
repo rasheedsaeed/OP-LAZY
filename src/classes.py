@@ -191,7 +191,7 @@ class GovFindAJobSelenium:
         return False
 
     def search_for_jobs(self, page_number=1) -> None:
-        """Search for jobs based of obj's job title and location, from a results page (default 1)."""
+        """Search for jobs based of obj's job title and location, from a job listing page (default 1)."""
         job_search_url: str = f"https://findajob.dwp.gov.uk/search?q={self.application.job_title}&w={self.application.job_location}&p={page_number}&pp=50"
 
         try:
@@ -284,6 +284,7 @@ class GovFindAJobSelenium:
         """Grabs the last item from the pager-items to determine the number of pages"""
         print("Grabbing number of pages from search result")
 
+        # A [valid] search results gives us number of pages with job listings
         self.search_for_jobs()
 
         try:
@@ -293,10 +294,9 @@ class GovFindAJobSelenium:
         except Exception as e:
             raise Exception(f"Coulnd't grab last page number from search result! {e}")
 
-        number_of_pages_str: str = selenium_element.text
-        number_of_pages: int = int(number_of_pages_str)
+        number_of_pages: int = int(selenium_element.text)
 
-        print(f"Number of pages found: {number_of_pages} ")
+        print(f"Number of listing pages found: {number_of_pages} ")
         return number_of_pages
 
     def get_job_urls_from_page_listing(
