@@ -191,7 +191,7 @@ class GovFindAJobSelenium:
         return False
 
     def search_for_jobs(self, page_number=1) -> None:
-        """Loads a job title and location results with a page number (default 1)"""
+        """Search for jobs based of obj's job title and location, from a results page (default 1)."""
         job_search_url: str = f"https://findajob.dwp.gov.uk/search?q={self.application.job_title}&w={self.application.job_location}&p={page_number}&pp=50"
 
         try:
