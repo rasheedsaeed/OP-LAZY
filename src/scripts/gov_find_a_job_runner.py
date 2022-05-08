@@ -1,6 +1,6 @@
 
-from typed_dicts import LoginCredentials
-from classes import JobApplication, GovFindAJobSelenium
+from src.typed_dicts import LoginCredentials
+from src.classes import JobApplication, GovFindAJobSelenium
 
 if __name__ == "__main__":
     # Credentials
@@ -30,6 +30,5 @@ if __name__ == "__main__":
     
     runner = GovFindAJobSelenium(application, login_details)
     runner.find_and_apply_for_jobs()
-    print(application.number_of_successful_application())
 
     

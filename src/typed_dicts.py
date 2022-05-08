@@ -2,6 +2,6 @@ from typing import TypedDict
 
 
 class LoginCredentials(TypedDict):
-    """Login credentials schema for the Findajob.gov website"""
+    """Login credentials for any webiste"""
     email: str
     password: str
