@@ -5,20 +5,19 @@ from src.classes import JobApplication, GovFindAJobSelenium
 if __name__ == "__main__":
     # Credentials
     login_details: LoginCredentials = {
-        "email": "claireshakeshaft1975@gmail.com", 
-        "password": "Mychildren_1975"
+        "email": "", 
+        "password": ""
     }
 
     # Job specific
-    job_title: str = "Live in carer"
-    job_location: str = "UK"
+    job_title: str = ""
+    job_location: str = "Petoria"
 
     # Details to fill out form
-    full_name: str = "Claire Shakeshaft"
-    message: str = """I am a live in career, but open to any other live in employment. Willing to relocate across the UK. 
-    My preferred method of contact is via my mobile number: 07754242334. I am DBS cleared.
-    """.replace("   ", "")
-    cv: str = "Claire_Shakeshaft___CV.pdf"
+    full_name: str = ""
+    message: str = """I cannot get enough break
+    """.replace("   ", "") # Do this because we get weird formatting...
+    cv: str = "cv.pdf"
 
     application = JobApplication(
         job_title=job_title,
