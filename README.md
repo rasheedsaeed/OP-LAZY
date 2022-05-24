@@ -7,8 +7,8 @@ OP LAZY is a Selenium-script that will automatically apply to jobs using the htt
 3. Have Firefox installed (or you can change the driver)
 
 ## Use guide
-Edit the src/script.py file with your credentials, full name, job title and location, cover letter, and targeted CV.
+Edit the src/scripts/gov_find_a_job_runner.py file with your credentials, full name, job title and location, cover letter, and targeted CV.
 
-Watch the CLI for updates.
+The CLI will output the number of sucessful applications. 
 
 
