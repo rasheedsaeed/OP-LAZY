@@ -1,4 +1,3 @@
-from typing import List
 import time
 
 from selenium import webdriver
@@ -27,7 +26,7 @@ class JobApplication:
         self.cv: str = cv
 
         # Applications we've applied for
-        self.sucessful_applications: List[str] = []
+        self.sucessful_applications: list[str] = []
 
     def sucessful_job_application(self, url: str) -> None:
         """Add which job we have sucessfully applied for"""
@@ -35,6 +34,7 @@ class JobApplication:
 
     def number_of_successful_application(self) -> int:
         return len(self.sucessful_applications)
+
 
 
 class GovFindAJobSelenium:
@@ -76,17 +76,23 @@ class GovFindAJobSelenium:
         if not self.is_logged_in():
             self.login()
 
-        number_of_search_results_page: int = (
+        number_of_job_listing_pages: int = (
             self.number_of_listing_pages_from_search_results()
         )
 
         # Now we have the number of pages, we can go through each page and extract each job application url
-        job_urls: List[str] = self.get_job_urls_from_page_listing(
-            number_of_search_results_page
-        )
+        jobs: list[str] = []
 
-        for job_url in job_urls:
-            self.apply_for_job(job_url)
+        # Starting 1 from represents the first page listing
+        for listing_page_number in range(1, number_of_job_listing_pages + 1): 
+            job_applications = self.get_job_urls_from_page_listing(
+                listing_page_number
+            )
+
+            jobs.extend(job_applications)
+
+        for job in jobs:
+            self.apply_for_job(job)
             print(f"Number of successful applications: {self.application.number_of_successful_application()}")
             
         print(
@@ -97,7 +103,6 @@ class GovFindAJobSelenium:
         if self.job_application_is_on_findajob_website(job_url):
             self.fill_out_findajob_form()
             print(f"Successfully applied for {job_url}")
-
 
     def fill_out_findajob_form(self) -> None:
         print(f"Applying for job: {self.web_driver.current_url}")
@@ -119,6 +124,7 @@ class GovFindAJobSelenium:
                 )
             except Exception as e:
                 raise Exception(f"Unable to send full name! {e}")
+                self.destroy_web_driver
 
             # Message
             try:
@@ -279,6 +285,7 @@ class GovFindAJobSelenium:
             raise ValueError("Web driver is already destroyed!")
 
         self.web_driver.quit()
+        self.web_driver = None
 
     def number_of_listing_pages_from_search_results(self) -> int:
         """Grabs the last item from the pager-items to determine the number of pages"""
@@ -296,30 +303,30 @@ class GovFindAJobSelenium:
 
         number_of_pages: int = int(selenium_element.text)
 
-        print(f"Number of listing pages found: {number_of_pages} ")
+        print(f"Number of listing pages found: {number_of_pages}")
         return number_of_pages
 
     def get_job_urls_from_page_listing(
-        self, number_of_search_results_page: int
-    ) -> List[str]:
-        print("Finding jobs listings...")
+        self, listing_page_number: int
+    ) -> list[str]:
+        """Returns the URLS of job application from a listing page"""
+        print(f"Finding jobs listings for page {listing_page_number}")
 
-        job_application_urls: list = []
-        for page_number in range(1, number_of_search_results_page + 1):
-            self.search_for_jobs(page_number)
+        job_application_urls: list[str] = []
 
-            selenium_elements = self.web_driver.find_elements_by_xpath(
-                GovFindAJobSelenium.XPATH["get_job_url_from_job_listing"]
-            )
+        self.search_for_jobs(listing_page_number)
 
-            print(f"Number of urls: {len(selenium_elements)}")
-            for selenium_element in selenium_elements:
-                url: str = selenium_element.get_attribute("href")
+        job_listings = self.web_driver.find_elements_by_xpath(
+            GovFindAJobSelenium.XPATH["get_job_url_from_job_listing"]
+        )
 
-                # The url we find is like: https://findajob.dwp.gov.uk/details/7784066; this url doesn't direct to the form but to the job details
-                # But if we change the "details" to "apply" then it takes us to the application... so change this
-                url = url.replace("details", "apply")
-                job_application_urls.append(url)
+        print(f"Number of urls: {len(job_listings)}")
+        for job_listing in job_listings:
+            url: str = job_listing.get_attribute("href")
 
-        print(f"Number of found applications: {len(job_application_urls)}")
+            # The url we find is like: https://findajob.dwp.gov.uk/details/7784066; this url doesn't direct to the form but to the job details
+            # But if we change the "details" to "apply" then it takes us to the application... so change this
+            url = url.replace("details", "apply")
+            job_application_urls.append(url)
+
         return job_application_urls
